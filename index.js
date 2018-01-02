@@ -20,6 +20,25 @@ var UserGroupRole = /** @class */ (function () {
         var _privileges = this.roles[_role];
         console.log(_privileges);
     };
+    UserGroupRole.prototype.set_user_roles = function (user) {
+        // here add user to user.json file wwith roles
+        // this is dicided by admin and descendent
+    };
+    UserGroupRole.prototype.set_roles = function (role) {
+        // get previleges from privilegs json and set it 
+        // this is dicided by admin and descendent
+    };
+    UserGroupRole.prototype.set_previleges = function (previleges, type) {
+        // this is created by the progrmer of the softwere
+        // this has no acces to admin and descendents
+        // only programer place
+        /*
+        =============================================================
+        preveleges can be set inside the progrme and assigned here
+        rather  then writing in JSON
+        ======================================================
+        */
+    };
     return UserGroupRole;
 }());
 exports.UserGroupRole = UserGroupRole;
