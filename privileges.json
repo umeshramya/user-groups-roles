@@ -1,0 +1,10 @@
+ { 
+    "create_voucher"    : "description-1"
+    , "alter_voucher"   : "description-2"
+    , "delete_voucher"  : "description-3"
+    , "create_ledger"   : "description-4"
+    , "delete_ledger"   : "description-5"
+    , "read_voucher"    : "description-6"
+    , "date_range"      : "description-7"
+    
+}

@@ -1,7 +1,7 @@
 {
   "name": "user-groups-roles",
   "version": "1.0.0",
-  "description": "  \"description\": \"This modules defines user roles as according defined roles. This also ads prevalages to roles. Thus it returns the status of prevalage for every request. This is middlewere (express)\",",
+  "description": "This modules defines user roles as according defined roles. This also ads prevalages to roles. Thus it returns the status of prevalage for every request. This is middlewere (express)\",",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,5 +22,10 @@
   "bugs": {
     "url": "https://github.com/umeshramya/user-groups-roles/issues"
   },
-  "homepage": "https://github.com/umeshramya/user-groups-roles#readme"
+  "homepage": "https://github.com/umeshramya/user-groups-roles#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^8.5.2",
+    "typescript": "^2.6.2"
+  }
 }
