@@ -1,0 +1,58 @@
+{   
+    "admin"         : { 
+                        "create_voucher"    : true
+                        , "alter_voucher"   : true
+                        , "delete_voucher"  : true
+                        , "create_ledger"   : true
+                        , "delete_ledger"   : true
+                        , "read_voucher"    : true
+                        , "date_range"      : 0
+                    },
+    "editor"        : { 
+                        "create_voucher"    : true
+                        , "alter_voucher"   : true
+                        , "delete_voucher"  : true
+                        , "create_ledger"   : true
+                        , "delete_ledger"   : false
+                        , "read_voucher"    : true
+                        , "date_range"      : 360
+                    },
+    "author"        : { 
+                        "create_voucher"    : true
+                        , "alter_voucher"   : true
+                        , "delete_voucher"  : true
+                        , "create_ledger"   : false
+                        , "delete_ledger"   : false
+                        , "read_voucher"    : true
+                        , "date_range"      : 1
+                    },
+    "contributor"   : { 
+                        "create_voucher"    : false
+                        , "alter_voucher"   : false
+                        , "delete_voucher"  : false
+                        , "create_ledger"   : false
+                        , "delete_ledger"   : false
+                        , "read_voucher"    : true
+                        , "date_range"      : -1
+                    },
+    "subscriber"    : { 
+                        "create_voucher"    : false
+                        , "alter_voucher"   : false
+                        , "delete_voucher"  : false
+                        , "create_ledger"   : false
+                        , "delete_ledger"   : false
+                        , "read_voucher"    : false
+                        , "date_range"      : -1
+                    },
+    "doctor"        : { 
+                            "create_voucher"    : true
+                            , "alter_voucher"   : true
+                            , "delete_voucher"  : true
+                            , "create_ledger"   : false
+                            , "delete_ledger"   : false
+                            , "read_voucher"    : true
+                            , "date_range"      : 1
+                        }
+}
+    
+

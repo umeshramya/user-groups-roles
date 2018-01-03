@@ -1,0 +1,10 @@
+{ 
+    "create_voucher"    : "bool"
+    , "alter_voucher"   : "bool"
+    , "delete_voucher"  : "bool"
+    , "create_ledger"   : "bool"
+    , "delete_ledger"   : "bool"
+    , "read_voucher"    : "bool"
+    , "date_range"      : "int"
+    
+}
