@@ -11,8 +11,8 @@ asigned array has first value as defult value and second value as discription of
 Object.defineProperty(exports, "__esModule", { value: true });
 const access = require("./access");
 class Privileges extends access.Access {
-    constructor() {
-        super();
+    constructor(jsonFolderPath = "./json") {
+        super(jsonFolderPath);
     }
     set_previleges(previleges, type) {
     }

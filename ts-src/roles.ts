@@ -8,8 +8,14 @@ import * as privileges from "./privileges";
 
 
 export class Roles extends privileges.Privileges{
-    constructor (){
-        super();
+    protected constructor (jsonFolderPath:string= "./json"){
+        super(jsonFolderPath);
+    }
+
+    get_role_privileges(role:string){
+        // this return privileges of specifed role
+       let privilages =  this.read_memory_roles()[role];
+       return privilages;
     }
 
     insert_role(role:string, privileges={}){
@@ -18,7 +24,7 @@ export class Roles extends privileges.Privileges{
         // check for asigened privileges
         // all privilege are to be added while declering roles
         // if some privilesge are not added then defult privilegs will added
-        let privilages = this.read_privileges();
+        let privilages = this.read_memory_privileges();
         
 
         // check for undeclered privileges

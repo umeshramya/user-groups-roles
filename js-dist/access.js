@@ -37,28 +37,40 @@ class Access {
         */
         // read the json files an store them class wide variable
         // this.users, this.roles, this.privileges
-        this.read_users();
-        this.read_roles();
-        this.read_privileges();
+        this.read_file_users();
+        this.read_file_roles();
+        this.read_file_privileges();
     }
     /*
         ============================
             Methods to read json files
         ============================
     */
-    read_users() {
+    read_memory_users() {
+        // returns the users from memory without going file
+        return this.users;
+    }
+    read_memory_roles() {
+        // returns the roles from memory without going file
+        return this.roles;
+    }
+    read_memory_privileges() {
+        // returns the privileges from memory without going file
+        return this.privileges;
+    }
+    read_file_users() {
         // this read the users.json file
         this.users = fs.readFileSync(this.usersPath); // asinging the users.json
         this.users = JSON.parse(this.users);
         return this.users;
     }
-    read_roles() {
+    read_file_roles() {
         // this reads the roles.json file
         this.roles = fs.readFileSync(this.rolesPath); // asigning the roles.json
         this.roles = JSON.parse(this.roles);
         return this.roles;
     }
-    read_privileges() {
+    read_file_privileges() {
         // reads the privilegs file
         this.privileges = fs.readFileSync(this.privilegesPath); // asiging the privileges.json
         this.privileges = JSON.parse(this.privileges).privileges;
@@ -69,7 +81,7 @@ class Access {
             Methods to insert new recods
         ======================================
     */
-    insret_user(users, role) {
+    insert_user(users, role) {
         // this writes the roles to users.json
         // check to prevent duplicate entry
         this.users[users] = role;

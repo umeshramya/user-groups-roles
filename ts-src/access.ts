@@ -3,11 +3,11 @@ import * as path from "path";
 
 export class Access{
     //below code has reletive path in to conjumer project
-    protected jsonFolderPath:string;//for declaring folder name and path for json files
+    private jsonFolderPath:string;//for declaring folder name and path for json files
 
-    protected privilegesPath:string // this stores the path and filename of privileges.json
-    protected usersPath:string      // this holds the pith file name of users.json
-    protected rolesPath:string      // this hols the path and file name of roles.json
+    private privilegesPath:string // this stores the path and filename of privileges.json
+    private usersPath:string      // this holds the pith file name of users.json
+    private rolesPath:string      // this hols the path and file name of roles.json
 
 
     private privileges:any;       // this holds the privileges.json data
@@ -57,33 +57,45 @@ export class Access{
 
         // read the json files an store them class wide variable
         // this.users, this.roles, this.privileges
-        this.read_users();
-        this.read_roles();
-        this.read_privileges();
-
-
+        this.read_file_users();
+        this.read_file_roles();
+        this.read_file_privileges();
     }
     /*
         ============================
             Methods to read json files
         ============================
     */ 
+    read_memory_users(){
+        // returns the users from memory without going file
+        return this.users;
+    }
 
-    read_users(){
+    read_memory_roles(){
+        // returns the roles from memory without going file
+        return this.roles;
+    }
+    read_memory_privileges(){
+        // returns the privileges from memory without going file
+        return this.privileges;
+    }
+
+
+    protected read_file_users(){
         // this read the users.json file
         this.users = fs.readFileSync(this.usersPath);     // asinging the users.json
         this.users = JSON.parse(this.users);
         return this.users
     }
 
-    read_roles(){
+    protected read_file_roles(){
         // this reads the roles.json file
         this.roles = fs.readFileSync(this.rolesPath);     // asigning the roles.json
         this.roles = JSON.parse(this.roles);
         return this.roles
     }
 
-    read_privileges(){
+    protected read_file_privileges(){
         // reads the privilegs file
         this.privileges = fs.readFileSync(this.privilegesPath);  // asiging the privileges.json
         this.privileges = JSON.parse(this.privileges).privileges;
@@ -95,7 +107,7 @@ export class Access{
             ======================================
         */ 
 
-    protected insret_user(users:string, role:string){
+    protected insert_user(users:string, role:string){
         // this writes the roles to users.json
         // check to prevent duplicate entry
         this.users[users] = role;

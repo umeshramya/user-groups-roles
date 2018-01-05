@@ -18,8 +18,8 @@ export type privilege_type = {
 }
 
 export class Privileges extends access.Access{
-    constructor(){
-        super();
+    protected constructor (jsonFolderPath:string= "./json"){
+        super(jsonFolderPath);
     }
 
     set_previleges(previleges:string, type:privilege_type){
