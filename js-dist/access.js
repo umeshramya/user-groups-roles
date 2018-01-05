@@ -50,16 +50,19 @@ class Access {
         // this read the users.json file
         this.users = fs.readFileSync(this.usersPath); // asinging the users.json
         this.users = JSON.parse(this.users);
+        return this.users;
     }
     read_roles() {
         // this reads the roles.json file
         this.roles = fs.readFileSync(this.rolesPath); // asigning the roles.json
         this.roles = JSON.parse(this.roles);
+        return this.roles;
     }
     read_privileges() {
         // reads the privilegs file
         this.privileges = fs.readFileSync(this.privilegesPath); // asiging the privileges.json
-        this.privileges = JSON.parse(this.privileges);
+        this.privileges = JSON.parse(this.privileges).privileges;
+        return this.privileges;
     }
     /*
         ======================================

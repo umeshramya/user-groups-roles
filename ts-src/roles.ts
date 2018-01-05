@@ -18,7 +18,8 @@ export class Roles extends privileges.Privileges{
         // check for asigened privileges
         // all privilege are to be added while declering roles
         // if some privilesge are not added then defult privilegs will added
-        this.read_privileges();
+        let privilages = this.read_privileges();
+        
 
         // check for undeclered privileges
         

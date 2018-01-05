@@ -10,9 +10,9 @@ export class Access{
     protected rolesPath:string      // this hols the path and file name of roles.json
 
 
-    protected privileges:any;       // this holds the privileges.json data
-    protected users:any;            // this holds users.json data
-    protected roles:any;            // this holds roles.json data
+    private privileges:any;       // this holds the privileges.json data
+    private users:any;            // this holds users.json data
+    private roles:any;            // this holds roles.json data
 
     
 
@@ -73,18 +73,21 @@ export class Access{
         // this read the users.json file
         this.users = fs.readFileSync(this.usersPath);     // asinging the users.json
         this.users = JSON.parse(this.users);
+        return this.users
     }
 
     read_roles(){
         // this reads the roles.json file
         this.roles = fs.readFileSync(this.rolesPath);     // asigning the roles.json
         this.roles = JSON.parse(this.roles);
+        return this.roles
     }
 
     read_privileges(){
         // reads the privilegs file
         this.privileges = fs.readFileSync(this.privilegesPath);  // asiging the privileges.json
-        this.privileges = JSON.parse(this.privileges); 
+        this.privileges = JSON.parse(this.privileges).privileges;
+        return this.privileges
     }
         /*
             ======================================

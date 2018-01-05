@@ -20,16 +20,17 @@ export class UserGroupRole extends roles.Roles{
         super();        
     }
 
-    get_user_roles(user:string){
+    get_user_role(user:string){
         // this return the role of the users
-        return this.users[user];
+        let users = this.read_users();
+        return users[user];
     }
 
 
     get_user_privileges(user:string){
-        // this gets privileges for each role of 
-        let _role:string = this.get_user_roles(user);
-        let _privileges:any = this.roles[_role];
+        // this gets privileges for spcified user from roles of 
+        let _role:string = this.get_user_role(user);//extract role of user
+        let _privileges:any = this.read_roles()[_role];
         return _privileges;
     }
 
@@ -38,11 +39,11 @@ export class UserGroupRole extends roles.Roles{
 
         // validate to check existing role
         this.read_roles();
-        if (isUndefined (this.roles[role])){
+        if (isUndefined (this.read_roles()[role])){
             throw new Error(role + " role is not valid");
         }
         // prevent duplicate entry user.json
-        if(isUndefined(this.users[user])){
+        if(isUndefined(this.read_users[user])){
             super.insret_user(user, role);
             this.read_users();
         }else{
