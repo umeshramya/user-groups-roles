@@ -1,29 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs = require("fs");
-const access = require("./access");
-class UserGroupRole extends access.Access {
+const roles = require("./roles");
+const util_1 = require("util");
+class UserGroupRole extends roles.Roles {
     constructor() {
         super();
-        // code to create new folder by name json if not exist
-        if (!fs.existsSync("json")) {
-            fs.mkdirSync("json");
-        }
-        // code to create users.json if not exist
-        if (!fs.existsSync("json/users.json")) {
-            var createStream = fs.createWriteStream("json/users.json");
-            createStream.end();
-        }
-        // code to create roles.json if not exist
-        if (!fs.existsSync("json/roles.json")) {
-            var createStream = fs.createWriteStream("json/roles.json");
-            createStream.end();
-        }
-        // code to create privileges.json if exist
-        if (!fs.existsSync("json/privileges.json")) {
-            var createStream = fs.createWriteStream("json/privileges.json");
-            createStream.end();
-        }
     }
     get_user_roles(user) {
         // this return the role of the users
@@ -35,24 +16,20 @@ class UserGroupRole extends access.Access {
         let _privileges = this.roles[_role];
         return _privileges;
     }
-    set_user_roles(user) {
-        // here add user to user.json file wwith roles
-        // this is dicided by admin and descendent
-    }
-    set_roles(role) {
-        // get previleges from privilegs json and set it 
-        // this is dicided by admin and descendent
-    }
-    set_previleges(previleges, type) {
-        // this is created by the progrmer of the softwere
-        // this has no acces to admin and descendents
-        // only programer place
-        /*
-        =============================================================
-        preveleges can be set inside the progrme and assigned here
-        rather  then writing in JSON
-        ======================================================
-        */
+    insret_user(user, role) {
+        // validate to check existing role
+        this.read_roles();
+        if (util_1.isUndefined(this.roles[role])) {
+            throw new Error(role + " role is not valid");
+        }
+        // prevent duplicate entry user.json
+        if (util_1.isUndefined(this.users[user])) {
+            super.insret_user(user, role);
+            this.read_users();
+        }
+        else {
+            throw new Error(user + " is  duplicate user not allowed");
+        }
     }
 }
 exports.UserGroupRole = UserGroupRole;
