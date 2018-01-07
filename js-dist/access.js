@@ -1,102 +1,79 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs = require("fs");
+const crud = require("crud-json-array");
+let crudPrivileges = new crud.CRUD(); //instance of class for privileges.json
+let crudRoles = new crud.CRUD(); //instance of class for roles.json
+let crudUsers = new crud.CRUD(); //instance of class for users.json
 class Access {
-    constructor(jsonFolderPath = "./json") {
-        this.jsonFolderPath = jsonFolderPath; //asigning the folder name with path
-        this.privilegesPath = this.jsonFolderPath + "/privileges.json";
-        this.usersPath = this.jsonFolderPath + "/users.json";
-        this.rolesPath = this.jsonFolderPath + "/roles.json";
-        /*
-        ====================================================================
-        */
-        // code to create new folder by name json if not exist
-        if (!fs.existsSync(this.jsonFolderPath)) {
-            fs.mkdirSync(this.jsonFolderPath);
-        }
-        // code to create users.json if not exist
-        if (!fs.existsSync(this.usersPath)) {
-            var createStream = fs.createWriteStream(this.usersPath);
-            createStream.end();
-            fs.writeFileSync(this.usersPath, JSON.stringify({}));
-        }
-        // code to create roles.json if not exist
-        if (!fs.existsSync(this.rolesPath)) {
-            var createStream = fs.createWriteStream(this.rolesPath);
-            createStream.end();
-            fs.writeFileSync(this.rolesPath, JSON.stringify({}));
-        }
-        // code to create privileges.json if exist
-        if (!fs.existsSync(this.privilegesPath)) {
-            var createStream = fs.createWriteStream(this.privilegesPath);
-            createStream.end();
-            fs.writeFileSync(this.privilegesPath, JSON.stringify({}));
-        }
-        /*
-        ====================================================================
-        */
-        // read the json files an store them class wide variable
-        // this.users, this.roles, this.privileges
-        this.read_file_users();
-        this.read_file_roles();
-        this.read_file_privileges();
+    constructor(dbPath = "./json") {
+        crudPrivileges.create_database(dbPath);
+        crudPrivileges.create_table('privileges.json', ["privilege", "description", "defualt"]);
+        crudRoles.create_database(dbPath);
+        crudRoles.create_table("roles.json", ["role", "privileges"]);
+        crudUsers.create_database(dbPath);
+        crudUsers.create_table('users.json', ['user', 'role']);
     }
     /*
-        ============================
-            Methods to read json files
-        ============================
+    =============
+    user.json CRUD
+    =============
     */
-    read_memory_users() {
-        // returns the users from memory without going file
-        return this.users;
+    user_insert(user, role) {
+        // insert one row
+        crudUsers.insert_one_row([user, role]);
     }
-    read_memory_roles() {
-        // returns the roles from memory without going file
-        return this.roles;
+    user_update(newUser, NewRole, oldUser) {
+        // updates one row
+        crudUsers.update_one_row([newUser, NewRole], [0, oldUser]);
     }
-    read_memory_privileges() {
-        // returns the privileges from memory without going file
-        return this.privileges;
+    get_users_table() {
+        return crudUsers.read_table_in_memory();
     }
-    read_file_users() {
-        // this read the users.json file
-        this.users = fs.readFileSync(this.usersPath); // asinging the users.json
-        this.users = JSON.parse(this.users);
-        return this.users;
-    }
-    read_file_roles() {
-        // this reads the roles.json file
-        this.roles = fs.readFileSync(this.rolesPath); // asigning the roles.json
-        this.roles = JSON.parse(this.roles);
-        return this.roles;
-    }
-    read_file_privileges() {
-        // reads the privilegs file
-        this.privileges = fs.readFileSync(this.privilegesPath); // asiging the privileges.json
-        this.privileges = JSON.parse(this.privileges).privileges;
-        return this.privileges;
+    user_delete(user) {
+        // delets one row
+        crudUsers.delete_one_row([0, user]);
     }
     /*
-        ======================================
-            Methods to insert new recods
-        ======================================
+        ================
+        roles.json CRUD
+        ================
     */
-    insert_user(users, role) {
-        // this writes the roles to users.json
-        // check to prevent duplicate entry
-        this.users[users] = role;
-        fs.writeFileSync(this.usersPath, JSON.stringify(this.users));
+    role_insert(role, privileges) {
+        // insert one row
+        crudRoles.insert_one_row([role, privileges]);
     }
-    insert_role(role, privileges = {}) {
-        // this writes roles to and asigned privileges to roles.json
-        this.roles[role] = privileges;
-        fs.writeFileSync(this.rolesPath, this.roles);
+    role_update(newRole, newPrivileges, oldRole) {
+        // updates one row
+        crudRoles.update_one_row([newRole, newPrivileges], [0, oldRole]);
     }
-    insert_privilege(privilege, value) {
-        // this writes privilges and value value is array of any
-        // check existing privilage
-        this.privileges[privilege] = value;
-        fs.writeFileSync(this.privilegesPath, this.privileges);
+    get_roles_table() {
+        // returns in memory table of roles.json
+        crudRoles.read_table_in_memory();
+    }
+    role_delete(role) {
+        // deletes single row
+        crudRoles.delete_one_row([0, role]);
+    }
+    /*
+        =====================
+        privileges.json CRUD
+        =====================
+    */
+    privilege_insert(privilege, description, defualt) {
+        // insert one row
+        crudPrivileges.insert_one_row([privilege, description, defualt]);
+    }
+    privilege_update(newPrivilege, newDescription, newDefualt, oldPrivalge) {
+        //update one privalage
+        crudPrivileges.update_one_row([newPrivilege, newDescription, newDefualt], [0, oldPrivalge]);
+    }
+    get_privilege_table() {
+        // gets privileges.json table from memory
+        crudPrivileges.read_table_in_memory();
+    }
+    privilege_delete(privilege) {
+        // deletes one privilege
+        crudPrivileges.delete_one_row([0, privilege]);
     }
 }
 exports.Access = Access;

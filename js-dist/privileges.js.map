@@ -1,1 +1,1 @@
-{"version":3,"file":"privileges.js","sourceRoot":"","sources":["../ts-src/privileges.ts"],"names":[],"mappings":";AAAA;;;;;;;;EAQE;;AAEF,mCAAmC;AASnC,gBAAwB,SAAQ,MAAM,CAAC,MAAM;IACzC,YAAuB,iBAAuB,QAAQ;QAClD,KAAK,CAAC,cAAc,CAAC,CAAC;IAC1B,CAAC;IAED,cAAc,CAAC,UAAiB,EAAE,IAAmB;IAGrD,CAAC;CACJ;AATD,gCASC"}
+{"version":3,"file":"privileges.js","sourceRoot":"","sources":["../ts-src/privileges.ts"],"names":[],"mappings":";;AAAA,mCAAmC;AAEnC,gBAAwB,SAAQ,MAAM,CAAC,MAAM;IAEzC,YAAY,SAAc,QAAQ;QAC9B,KAAK,CAAC,MAAM,CAAC,CAAC;IAClB,CAAC;CAEJ;AAND,gCAMC"}

@@ -1,41 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/*class for implimanting users*/
 const roles = require("./roles");
-const util_1 = require("util");
-class UserGroupRole extends roles.Roles {
-    constructor(jsonFolderPath = "./json") {
-        super(jsonFolderPath);
-        this.Users = super.read_memory_users();
-        this.Roles = super.read_memory_roles();
-        this.Privileges = super.read_memory_privileges();
+class Users extends roles.Roles {
+    constructor(dbpath = "./json") {
+        super(dbpath);
     }
-    get_user_role(user) {
-        // this return the role of the users
-        let users = this.read_memory_users();
-        return users[user];
+    user_insert(user, role) {
+        // insert one row
+        // write code of validation
+        super.user_insert(user, role);
     }
-    get_user_privileges(user) {
-        // this gets privileges for spcified user from roles of 
-        let role = this.get_user_role(user); //extract role of user
-        let _privileges = this.get_role_privileges(role);
-        return _privileges;
+    user_update(newUser, NewRole, oldUser) {
+        // updates one row
+        // write code of validation        
+        super.user_update(newUser, NewRole, oldUser);
     }
-    insert_user(user, role) {
-        // this code has be still rewritten fix the bug
-        // validate to check existing role
-        this.read_memory_roles();
-        if (util_1.isUndefined(this.read_memory_roles()[role])) {
-            throw new Error(role + " role is not valid");
-        }
-        // prevent duplicate entry user.json
-        if (util_1.isUndefined(this.read_memory_users()[user])) {
-            super.insert_user(user, role);
-            this.read_memory_users();
-        }
-        else {
-            throw new Error(user + " is  duplicate user not allowed");
-        }
+    user_delete(user) {
+        // delets one row
+        // write code of validatation
+        super.user_delete(user);
     }
 }
-exports.UserGroupRole = UserGroupRole;
+exports.Users = Users;
 //# sourceMappingURL=users.js.map
