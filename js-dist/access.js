@@ -48,7 +48,7 @@ class Access {
     }
     get_roles_table() {
         // returns in memory table of roles.json
-        crudRoles.read_table_in_memory();
+        return crudRoles.read_table_in_memory();
     }
     role_delete(role) {
         // deletes single row
@@ -69,7 +69,7 @@ class Access {
     }
     get_privilege_table() {
         // gets privileges.json table from memory
-        crudPrivileges.read_table_in_memory();
+        return crudPrivileges.read_table_in_memory();
     }
     privilege_delete(privilege) {
         // deletes one privilege

@@ -64,7 +64,7 @@ export class Access{
     }
     protected get_roles_table(){
         // returns in memory table of roles.json
-        crudRoles.read_table_in_memory();
+        return crudRoles.read_table_in_memory();
 
     }
 
@@ -91,7 +91,7 @@ export class Access{
 
     protected get_privilege_table(){
         // gets privileges.json table from memory
-        crudPrivileges.read_table_in_memory();
+        return crudPrivileges.read_table_in_memory();
     }
 
     protected privilege_delete(privilege:string){
