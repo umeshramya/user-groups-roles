@@ -1,47 +1,61 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var access = require("./access");
-var Privileges = /** @class */ (function (_super) {
-    __extends(Privileges, _super);
-    function Privileges(dbPath) {
-        if (dbPath === void 0) { dbPath = "./json"; }
-        return _super.call(this, dbPath) || this;
+const access = require("./access");
+class Privileges extends access.Access {
+    constructor(dbPath = "./json") {
+        super(dbPath);
     }
-    Privileges.prototype.privilege_insert = function (privilege, description, defualt) {
-        // insert one row
-        // write code of validation
+    validate_privilege(privilege) {
+        //returns the index at 0 with table row as array at 1
+        // else it retrns false clearing for new insert
+        if (privilege == "") {
+            throw new Error("Privilege can be empty");
+        }
+        let curTable = this.get_privilege_table();
+        for (let index = 0; index < curTable.length; index++) {
+            if (curTable[index][0] == privilege) {
+                return [index, curTable[index]]; //returns the index at 0 with table row as array at 1
+            }
+        }
+        return false; // this suggest this privilege is not found 
+    }
+    privilege_insert(privilege, description, defualt) {
         if ((privilege == "") || (description == "") || (defualt == "")) {
             throw new Error("all fields are compulsory");
         }
-        _super.prototype.privilege_insert.call(this, privilege, description, defualt);
-    };
-    Privileges.prototype.privilege_update = function (newPrivilege, newDescription, newDefualt, oldPrivalge) {
+        // insert one row
+        let checkInsert = this.validate_privilege(privilege);
+        if (checkInsert == false) {
+            // false suggest this privilege is not found in table
+            super.privilege_insert(privilege, description, defualt);
+        }
+        else {
+            throw new Error(privilege + " invalid duplicate privilege");
+        }
+    }
+    privilege_update(newPrivilege, newDescription, newDefualt, oldPrivalge) {
         //update one privalage
         // write code of validation
-        if ((newPrivilege == "") || (newDescription == "") || (newDefualt == "") || (oldPrivalge == "")) {
+        //    || (newDefualt == "") || (oldPrivalge == "")
+        if (((newPrivilege == "") || (newDescription == "")) && ((newDefualt == "") || (oldPrivalge == ""))) {
             throw new Error("all fields are compulsory");
         }
-        _super.prototype.privilege_update.call(this, newPrivilege, newDescription, newDefualt, oldPrivalge);
-    };
-    Privileges.prototype.privilege_delete = function (privilege) {
+        let checkUpdate = this.validate_privilege(newPrivilege);
+        if (checkUpdate == false) {
+            super.privilege_update(newPrivilege, newDescription, newDefualt, oldPrivalge);
+        }
+        else {
+            throw new Error(newPrivilege + " invalid duplicate new privilege");
+        }
+    }
+    privilege_delete(privilege) {
         // deletes one privilege
         // write code of validation
         if (privilege == "") {
             throw new Error("Privilege name not given");
         }
-        _super.prototype.privilege_delete.call(this, privilege);
-    };
-    return Privileges;
-}(access.Access));
+        super.privilege_delete(privilege);
+    }
+}
 exports.Privileges = Privileges;
 //# sourceMappingURL=privileges.js.map

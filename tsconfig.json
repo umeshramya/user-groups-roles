@@ -2,8 +2,13 @@
     "compilerOptions": {
         "sourceMap": true,
         "target": "es6",
-        "module": "commonjs"
+        "module": "commonjs",
+        "outDir": "js-dist"
+       
     },
+   "include": [
+       "ts-src"
+   ],
 
     "exclude": [
         "node_modules"

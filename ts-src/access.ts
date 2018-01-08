@@ -11,13 +11,13 @@ export class Access{
 
     constructor(dbPath:string="./json"){
         crudPrivileges.create_database(dbPath);
-        crudPrivileges.create_table('privileges.json', ["privilege", "description", "defualt"]);
+        crudPrivileges.create_table('privileges', ["privilege", "description", "defualt"]);
 
         crudRoles.create_database(dbPath);
-        crudRoles.create_table("roles.json", ["role", "privileges"]);
+        crudRoles.create_table("roles", ["role", "privileges"]);
 
         crudUsers.create_database(dbPath);
-        crudUsers.create_table('users.json', ['user', 'role']);       
+        crudUsers.create_table('users', ['user', 'role']);       
         
     }
 
