@@ -2,8 +2,8 @@
 import * as roles from "./roles"
 
 export class Users extends roles.Roles{
-    constructor(dbpath:string="./json"){
-        super(dbpath);
+    constructor(dbPath:string="./json"){
+        super(dbPath);
     }
 
     validate_user_role(user:string){

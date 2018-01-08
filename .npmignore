@@ -1,4 +1,6 @@
-#Typescript map files
+
+#Typescript and map file
+*.ts
 *.js.map
 
 # Logs

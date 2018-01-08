@@ -2,8 +2,8 @@ import * as privileges from "./privileges";
 
 export class Roles extends privileges.Privileges{
 
-    constructor(dbpath:string="./json"){
-        super(dbpath);
+    constructor(dbPath:string="./json"){
+        super(dbPath);
     }
 
     validate_role_privileges(role:string){

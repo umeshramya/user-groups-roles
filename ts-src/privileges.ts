@@ -3,8 +3,8 @@ import { error } from "util";
 
 export class Privileges extends access.Access{
 
-    constructor(dbpath:string="./json"){
-        super(dbpath);
+    constructor(dbPath:string="./json"){
+        super(dbPath);
     }
 
     privilege_insert(privilege:string, description:string, defualt:string){
