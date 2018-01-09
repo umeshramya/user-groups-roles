@@ -20,13 +20,13 @@ class Users extends roles.Roles {
         // this after checking valid user from this.valid_user_role
         // return the prileges from this.validate_roles()
         let role = this.validate_user_role(user);
-        return this.validate_role_privileges(role);
+        return this.get_role_privileges(role);
     }
     user_insert(user, role) {
         // insert one row
         // write code of validation
         let validRolePrivileges = {};
-        validRolePrivileges = this.validate_role_privileges(role); //returns error if not valid role
+        validRolePrivileges = this.get_role_privileges(role); //returns error if not valid role
         if (validRolePrivileges == {}) {
             throw new Error(role + " invalid role");
         }
