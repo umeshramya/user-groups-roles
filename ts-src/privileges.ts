@@ -21,18 +21,31 @@ export class Privileges extends access.Access{
         return false;// this suggest this privilege is not found 
 
     }
-    privilege_insert(privilege:string, description:string, defualt:string){
-        if ((privilege == "") || (description == "") || (defualt == "")){
-            throw new Error ( "all fields are compulsory");
+    privilege_insert(curPrivilege:string, curDescription:string, curDefualt:any){
+        
+        if ( curPrivilege == ""){// check  are privilege field
+            throw new Error ( "privilege field is  compulsory");
         }
+
+        if (curDescription == ""){// check for description field
+            throw new Error ( "description field is  compulsory");
+        }
+        if ((curDefualt == true) || (curDefualt == false)) {// check for defualt field
+            // pass 
+        }else{
+            throw new Error ( "defualt field is  compulsory");
+        }
+
+
+
         // insert one row
-        let checkInsert:any = this.validate_privilege(privilege);
+        let checkInsert:any = this.validate_privilege(curPrivilege);
         if (checkInsert == false){
             // false suggest this privilege is not found in table
-            super.privilege_insert(privilege, description, defualt);
+            super.privilege_insert(curPrivilege, curDescription, curDefualt);
 
         }else{
-            throw new Error(privilege + " invalid duplicate privilege");
+            throw new Error(curPrivilege + " invalid duplicate privilege");
         }
      
 
@@ -41,10 +54,22 @@ export class Privileges extends access.Access{
     privilege_update(newPrivilege, newDescription, newDefualt, oldPrivalge){
         //update one privalage
         // write code of validation
-    //    || (newDefualt == "") || (oldPrivalge == "")
-        if(((newPrivilege == "") || (newDescription == "")) && ((newDefualt == "") || (oldPrivalge == ""))){
-            throw new Error ("all fields are compulsory");
+        if(newPrivilege == ""){// check newPrivilege field
+            throw new Error ("newPrivilege field is compulsory");
         }
+        if(newDescription == ""){// check for new description field
+            throw new Error ("newDescription field is compulsory");
+        }
+        if(newDefualt == ""){// check for newDedualt field
+            throw new Error ("newDefualt field is compulsory");
+        }
+        if(oldPrivalge == ""){//check for old
+            throw new Error ("oldPrivalge field is compulsory");
+        }
+
+        
+
+
         let checkUpdate:any = this.validate_privilege(newPrivilege);        
         if (checkUpdate == false){
             super.privilege_update(newPrivilege, newDescription, newDefualt, oldPrivalge);

@@ -19,26 +19,43 @@ class Privileges extends access.Access {
         }
         return false; // this suggest this privilege is not found 
     }
-    privilege_insert(privilege, description, defualt) {
-        if ((privilege == "") || (description == "") || (defualt == "")) {
-            throw new Error("all fields are compulsory");
+    privilege_insert(curPrivilege, curDescription, curDefualt) {
+        if (curPrivilege == "") {
+            throw new Error("privilege field is  compulsory");
         }
-        // insert one row
-        let checkInsert = this.validate_privilege(privilege);
-        if (checkInsert == false) {
-            // false suggest this privilege is not found in table
-            super.privilege_insert(privilege, description, defualt);
+        if (curDescription == "") {
+            throw new Error("description field is  compulsory");
+        }
+        if ((curDefualt == true) || (curDefualt == false)) {
+            // pass 
         }
         else {
-            throw new Error(privilege + " invalid duplicate privilege");
+            throw new Error("defualt field is  compulsory");
+        }
+        // insert one row
+        let checkInsert = this.validate_privilege(curPrivilege);
+        if (checkInsert == false) {
+            // false suggest this privilege is not found in table
+            super.privilege_insert(curPrivilege, curDescription, curDefualt);
+        }
+        else {
+            throw new Error(curPrivilege + " invalid duplicate privilege");
         }
     }
     privilege_update(newPrivilege, newDescription, newDefualt, oldPrivalge) {
         //update one privalage
         // write code of validation
-        //    || (newDefualt == "") || (oldPrivalge == "")
-        if (((newPrivilege == "") || (newDescription == "")) && ((newDefualt == "") || (oldPrivalge == ""))) {
-            throw new Error("all fields are compulsory");
+        if (newPrivilege == "") {
+            throw new Error("newPrivilege field is compulsory");
+        }
+        if (newDescription == "") {
+            throw new Error("newDescription field is compulsory");
+        }
+        if (newDefualt == "") {
+            throw new Error("newDefualt field is compulsory");
+        }
+        if (oldPrivalge == "") {
+            throw new Error("oldPrivalge field is compulsory");
         }
         let checkUpdate = this.validate_privilege(newPrivilege);
         if (checkUpdate == false) {
