@@ -5,18 +5,6 @@ class Roles extends privileges.Privileges {
     constructor(dbPath = "./json") {
         super(dbPath);
     }
-    get_role_privileges(role) {
-        // this code validates role and returns privileges of the role 
-        // it throws error if role is not found
-        let crutTable = this.get_roles_table(); //
-        let privileges;
-        for (let index = 0; index < crutTable.length; index++) {
-            if (crutTable[index][0] == role) {
-                privileges = crutTable[index][1];
-            }
-        }
-        throw new Error(role + " is not a valid role");
-    }
     validate_role(role) {
         // this check for duplicate roles entry
         // return the role if found or return flase if not found
@@ -27,6 +15,17 @@ class Roles extends privileges.Privileges {
             }
         }
         return false; // this will allow new role entry
+    }
+    validate_privileges(privileges) {
+        // this validate array of privileges
+        // throws error if privilege is not declered in privileges.json table
+        let validPrivilege;
+        for (let index = 0; index < privileges.length; index++) {
+            validPrivilege = this.validate_single_privilege(privileges[index][0]);
+            if (validPrivilege == false) {
+                throw new Error(validPrivilege + " is invalid privilege");
+            }
+        }
     }
     role_insert(role, privileges) {
         // insert one row
@@ -46,20 +45,26 @@ class Roles extends privileges.Privileges {
         }
         // check for valid role to prevent duplicate enty
         if (this.validate_role(role) != false) {
-            throw new Error(role + " this is duplicate entry suggested update for modifications");
+            throw new Error(role + " this is duplicate entry, suggested to use update for modifications");
         }
-        // check valid privilege
-        let validPrivilege;
-        for (let index = 0; index < privileges.length; index++) {
-            validPrivilege = this.validate_single_privilege(privileges[index][0]);
-            if (validPrivilege == false) {
-                throw new Error(validPrivilege + " is invalid privilege");
-            }
-        }
+        // check valid privileges
+        this.validate_privileges(privileges);
         super.role_insert(role, privileges);
     }
     role_update(newRole, newPrivileges, oldRole) {
         // updates one row
+        if (newRole === "") {
+            throw new Error("newRole can not be empty"); //checking empty newRole   
+        }
+        if (newPrivileges.length == 0) {
+            throw new Error("newPrevileges cannot zero length array"); //checking for zero length newPrivileges
+        }
+        if (oldRole === "") {
+            throw new Error("oldRole can not empty"); //checking for empty old role
+        }
+        // check valid privileges
+        this.validate_privileges(newPrivileges);
+        // check for valid newPrivilages
         super.role_update(newRole, newPrivileges, oldRole);
     }
     role_delete(role) {

@@ -6,6 +6,18 @@ class Users extends roles.Roles {
     constructor(dbPath = "./json") {
         super(dbPath);
     }
+    get_role_privileges(role) {
+        // this code validates role and returns privileges of the role 
+        // it throws error if role is not found
+        let crutTable = this.get_roles_table(); //
+        let privileges;
+        for (let index = 0; index < crutTable.length; index++) {
+            if (crutTable[index][0] == role) {
+                privileges = crutTable[index][1];
+            }
+        }
+        throw new Error(role + " is not a valid role");
+    }
     validate_user_role(user) {
         // this validates the from the tabel and returns role if found or throw error
         let curTable = this.get_users_table();

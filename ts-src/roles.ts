@@ -7,18 +7,6 @@ export class Roles extends privileges.Privileges{
         super(dbPath);
     }
 
-    get_role_privileges(role:string){
-        // this code validates role and returns privileges of the role 
-        // it throws error if role is not found
-        let crutTable:any[]= this.get_roles_table();//
-        let privileges:{};
-        for (let index = 0; index < crutTable.length; index++) {
-            if (crutTable[index][0] == role){
-                privileges = crutTable[index][1];
-            }
-        }        
-        throw new Error(role + " is not a valid role")
-    }
 
     validate_role(role:string){
         // this check for duplicate roles entry
@@ -31,7 +19,20 @@ export class Roles extends privileges.Privileges{
             
         }
         return false // this will allow new role entry
-    }  
+    }
+    
+    validate_privileges(privileges:any[]){
+        // this validate array of privileges
+        // throws error if privilege is not declered in privileges.json table
+        let validPrivilege:any;
+        for (let index = 0; index < privileges.length; index++) {
+           validPrivilege = this.validate_single_privilege(privileges[index][0]);
+           if(validPrivilege == false){
+               throw new Error (validPrivilege + " is invalid privilege");
+           }
+            
+        }
+    }
  
 
 
@@ -56,16 +57,9 @@ export class Roles extends privileges.Privileges{
         if(this.validate_role(role) != false){
             throw new Error (role + " this is duplicate entry, suggested to use update for modifications");
         }
-        // check valid privilegess
-        let validPrivilege:any;
-        for (let index = 0; index < privileges.length; index++) {
-           validPrivilege = this.validate_single_privilege(privileges[index][0]);
-           if(validPrivilege == false){
-               throw new Error (validPrivilege + " is invalid privilege");
-           }
-            
-        }      
-    
+        // check valid privileges
+        this.validate_privileges(privileges);
+        
         super.role_insert(role, privileges);
     }
 
@@ -85,10 +79,10 @@ export class Roles extends privileges.Privileges{
             throw new Error("oldRole can not empty");//checking for empty old role
         }
 
+        // check valid privileges
+        this.validate_privileges(newPrivileges);
+
         // check for valid newPrivilages
-
-
-
         super.role_update(newRole, newPrivileges, oldRole);
 
     }

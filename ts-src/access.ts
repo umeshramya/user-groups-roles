@@ -6,7 +6,6 @@ let crudRoles       = new crud.CRUD(); //instance of class for roles.json
 let crudUsers       = new crud.CRUD(); //instance of class for users.json
 
 
-
 export class Access{
 
     constructor(dbPath:string="./json"){

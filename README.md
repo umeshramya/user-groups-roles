@@ -13,7 +13,7 @@ var curRole = new   role.UserGroupsRoles("test");
 // test/prvileges.json, test/roles.json, user.json
 
 ```
-## CRUD operatation for privilege.json
+## CRUD operatation for privileges.json
 
 
 ## CRUD opertation for roles.json
@@ -46,7 +46,7 @@ The admin user is supreme. he has all powers even above admin roles or groups.
 
 ### privileges
 These are created by a software developer, not by admin. Admin user can not create new privileges, but by default, he has the power to assign existing privileges(i.e created by software developer
-#### exapmple of prvileges table
+#### example of prvileges table
 ```
 {"array":[
         ["privilege","description","defualt"],
