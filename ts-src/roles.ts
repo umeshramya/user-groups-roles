@@ -10,11 +10,11 @@ export class Roles extends privileges.Privileges{
 
     validate_role(role:string){
         // this check for duplicate roles entry
-        // return the role if found or return flase if not found
+        // return the role if found or return false if not found
         let crutTable = this.get_roles_table();
         for (let index = 0; index < crutTable.length; index++) {
             if(crutTable[index][0] == role){
-                return [index, [crutTable[index]]];
+                return [index, crutTable[index]];
             }
             
         }
@@ -35,7 +35,7 @@ export class Roles extends privileges.Privileges{
     }
  
 
-
+    
     role_insert(role:string, privileges:any[]){
         // insert one row
        /*
@@ -79,6 +79,13 @@ export class Roles extends privileges.Privileges{
             throw new Error("oldRole can not empty");//checking for empty old role
         }
 
+        // validate newRole (prvents duplicate role)
+        // check for valid role to prevent duplicate enty
+        if(this.validate_role(newRole) != false){
+            throw new Error (newRole + " this is duplicate entry not allowed");
+        }
+        
+
         // check valid privileges
         this.validate_privileges(newPrivileges);
 
@@ -93,7 +100,5 @@ export class Roles extends privileges.Privileges{
        super.role_delete(role);
 
     }
-
-
-    
+   
 }
