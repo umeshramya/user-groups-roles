@@ -5,7 +5,7 @@ class Privileges extends access.Access {
     constructor(dbPath = "./json") {
         super(dbPath);
     }
-    validate_privilege(privilege) {
+    validate_single_privilege(privilege) {
         //returns the index at 0 with table row as array at 1
         // else it retrns false clearing for new insert
         if (privilege == "") {
@@ -30,10 +30,12 @@ class Privileges extends access.Access {
             // pass 
         }
         else {
-            throw new Error("defualt field is  compulsory");
+            if (curDefualt != "") {
+                throw new Error("defualt field is  compulsory");
+            }
         }
         // insert one row
-        let checkInsert = this.validate_privilege(curPrivilege);
+        let checkInsert = this.validate_single_privilege(curPrivilege);
         if (checkInsert == false) {
             // false suggest this privilege is not found in table
             super.privilege_insert(curPrivilege, curDescription, curDefualt);
@@ -51,13 +53,13 @@ class Privileges extends access.Access {
         if (newDescription == "") {
             throw new Error("newDescription field is compulsory");
         }
-        if (newDefualt == "") {
+        if (newDefualt === "") {
             throw new Error("newDefualt field is compulsory");
         }
         if (oldPrivalge == "") {
             throw new Error("oldPrivalge field is compulsory");
         }
-        let checkUpdate = this.validate_privilege(newPrivilege);
+        let checkUpdate = this.validate_single_privilege(newPrivilege);
         if (checkUpdate == false) {
             super.privilege_update(newPrivilege, newDescription, newDefualt, oldPrivalge);
         }
@@ -75,4 +77,3 @@ class Privileges extends access.Access {
     }
 }
 exports.Privileges = Privileges;
-//# sourceMappingURL=privileges.js.map

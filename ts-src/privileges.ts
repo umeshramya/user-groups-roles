@@ -6,7 +6,7 @@ export class Privileges extends access.Access{
     constructor(dbPath:string="./json"){
         super(dbPath);
     }
-    validate_privilege(privilege:string){
+    validate_single_privilege(privilege:string){
          //returns the index at 0 with table row as array at 1
         // else it retrns false clearing for new insert
         if (privilege == ""){
@@ -33,13 +33,14 @@ export class Privileges extends access.Access{
         if ((curDefualt == true) || (curDefualt == false)) {// check for defualt field
             // pass 
         }else{
-            throw new Error ( "defualt field is  compulsory");
+            if (curDefualt != ""){
+                throw new Error ( "defualt field is  compulsory");
+            }
+            
         }
 
-
-
         // insert one row
-        let checkInsert:any = this.validate_privilege(curPrivilege);
+        let checkInsert:any = this.validate_single_privilege(curPrivilege);
         if (checkInsert == false){
             // false suggest this privilege is not found in table
             super.privilege_insert(curPrivilege, curDescription, curDefualt);
@@ -60,7 +61,7 @@ export class Privileges extends access.Access{
         if(newDescription == ""){// check for new description field
             throw new Error ("newDescription field is compulsory");
         }
-        if(newDefualt == ""){// check for newDedualt field
+        if( newDefualt ===""){// check for newDedualt field
             throw new Error ("newDefualt field is compulsory");
         }
         if(oldPrivalge == ""){//check for old
@@ -70,7 +71,7 @@ export class Privileges extends access.Access{
         
 
 
-        let checkUpdate:any = this.validate_privilege(newPrivilege);        
+        let checkUpdate:any = this.validate_single_privilege(newPrivilege);        
         if (checkUpdate == false){
             super.privilege_update(newPrivilege, newDescription, newDefualt, oldPrivalge);
         }else{

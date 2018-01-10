@@ -27,7 +27,7 @@ export class Users extends roles.Roles{
     user_insert(user, role){
         // insert one row
         // write code of validation
-        let validRolePrivileges:{} ={};
+        let validRolePrivileges:any;
         validRolePrivileges = this.get_role_privileges(role);//returns error if not valid role
         if (validRolePrivileges == {}){
             throw new Error ( role + " invalid role");   

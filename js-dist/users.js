@@ -25,7 +25,7 @@ class Users extends roles.Roles {
     user_insert(user, role) {
         // insert one row
         // write code of validation
-        let validRolePrivileges = {};
+        let validRolePrivileges;
         validRolePrivileges = this.get_role_privileges(role); //returns error if not valid role
         if (validRolePrivileges == {}) {
             throw new Error(role + " invalid role");
@@ -46,4 +46,3 @@ class Users extends roles.Roles {
     }
 }
 exports.Users = Users;
-//# sourceMappingURL=users.js.map

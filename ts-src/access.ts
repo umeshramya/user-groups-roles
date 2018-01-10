@@ -52,12 +52,12 @@ export class Access{
         ================
     */ 
 
-    protected role_insert(role:string, privileges:{}){
+    protected role_insert(role:string, privileges:any[]){
         // insert one row
         crudRoles.insert_one_row([role, privileges])
 
     }
-    protected role_update(newRole:string, newPrivileges:{}, oldRole:string){
+    protected role_update(newRole:string, newPrivileges:any[], oldRole:string){
         // updates one row
         crudRoles.update_one_row([newRole, newPrivileges],[0,oldRole]);
 

@@ -77,4 +77,3 @@ class Access {
     }
 }
 exports.Access = Access;
-//# sourceMappingURL=access.js.map
