@@ -33,6 +33,20 @@ export class Roles extends privileges.Privileges{
             
         }
     }
+
+    get_role_privilegs(role:string){
+        // this return the array of privileges declered for roles.json
+        // return false if role is nor found
+        let crutTable:any = this.get_roles_table();
+        for (let index = 0; index < crutTable.length; index++) {
+            if (crutTable[index][0] == role){
+                return crutTable[index]
+            }
+            
+        }
+        return false;
+
+    }
  
 
     

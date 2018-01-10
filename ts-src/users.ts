@@ -1,5 +1,6 @@
 /*class for implimanting users*/
 import * as roles from "./roles"
+import { error } from "util";
 
 export class Users extends roles.Roles{
     constructor(dbPath:string="./json"){
@@ -34,12 +35,23 @@ export class Users extends roles.Roles{
     get_user_privileges(user:string){
         // this is for getting privileges for given user
         //get role of the user
-
+        let role:string = this.validate_user(user)[1][1];
         // get the declered privileges of roles got
-
+        let privileges:any[] = this.get_role_privilegs(role);
         //add undeclerred privileges on the fly for just showing with defulat values
-
+        let allPrivileges:any[] = this.get_all_prvileges();
         // return the privileges
+        let returnPrivileges:any[];
+        if (privileges.length <= allPrivileges.length){
+            for (let index = 0; index < privileges.length; index++) {
+                //write code for here 
+            }
+
+        }else{
+            throw new Error("This users role has some undefined privileges kindly rectify them");
+        }
+   
+
 
 
     }

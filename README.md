@@ -57,3 +57,9 @@ These are created by a software developer, not by admin. Admin user can not crea
     }
 
 ```
+
+## To Do
+1. After update of privileges it has check ever role and make update of that prvileges
+2. after upadte of role it has check evry user and make update of role
+3. write thos code get_user_privileges() in user.ts
+4. write tests
