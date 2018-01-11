@@ -30,7 +30,7 @@ curRole.privilege_insert("voucher_date","alter or delete voucher date 0 = no dat
 curRole.privilege_update("alter_voucher", "permission to alter existing voucher", true,"edit_voucher");
 
 // delete
-write code here
+curRole.privilege_delete("delete_voucher")
 ```
 ## CRUD opertation for roles.json
 ```
@@ -93,7 +93,7 @@ curRole.role_delete("contributor");
 
 ## CRUD operation for users.json
 ```
-curRole.privilege_delete("delete_voucher")
+write code here
 ```
 
 ### users
