@@ -1,5 +1,6 @@
 import * as privileges from "./privileges";
 import { CRUD } from "crud-json-array";
+import { isUndefined } from "util";
 
 export class Roles extends privileges.Privileges{
 
@@ -37,7 +38,7 @@ export class Roles extends privileges.Privileges{
     get_role_privilegs(role:string){
         // this return the array of privileges declered for roles.json
         // return false if role is nor found
-        let crutTable:any = this.get_roles_table();
+        let crutTable:any[] = this.get_roles_table();
         for (let index = 0; index < crutTable.length; index++) {
             if (crutTable[index][0] == role){
                 return crutTable[index]
@@ -60,10 +61,10 @@ export class Roles extends privileges.Privileges{
                 ["change_date", 0]
                 ]
         */ 
-        if (role == ""){
+        if (isUndefined(role) || role == ""){
             throw new Error("role field is compulsory");// role can nor be empty
         }
-        if (privileges.length ==0){
+        if (isUndefined(privileges) || privileges.length ==0){
             throw new Error ("Privileges can not be empty")// privileges can not be empty
         } 
 
@@ -81,21 +82,21 @@ export class Roles extends privileges.Privileges{
 
     role_update(newRole:string, newPrivileges:any[], oldRole:string){
         // updates one row
-        if (newRole === ""){
+        if  (isUndefined(newRole) || newRole === ""){
             throw new Error("newRole can not be empty");//checking empty newRole   
         }
 
-        if(newPrivileges.length == 0){
+        if( isUndefined(newPrivileges) || newPrivileges.length == 0){
             throw new Error("newPrevileges cannot zero length array");//checking for zero length newPrivileges
         }
 
-        if(oldRole === ""){
+        if(isUndefined(oldRole) || oldRole === ""){
             throw new Error("oldRole can not empty");//checking for empty old role
         }
 
         // validate newRole (prvents duplicate role)
         // check for valid role to prevent duplicate enty
-        if(this.validate_role(newRole) != false){
+        if((this.validate_role(newRole) != false)  && (newRole != oldRole) ){
             throw new Error (newRole + " this is duplicate entry not allowed");
         }
         

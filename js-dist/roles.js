@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const privileges = require("./privileges");
+const util_1 = require("util");
 class Roles extends privileges.Privileges {
     constructor(dbPath = "./json") {
         super(dbPath);
@@ -48,10 +49,10 @@ class Roles extends privileges.Privileges {
                  ["change_date", 0]
                  ]
          */
-        if (role == "") {
+        if (util_1.isUndefined(role) || role == "") {
             throw new Error("role field is compulsory"); // role can nor be empty
         }
-        if (privileges.length == 0) {
+        if (util_1.isUndefined(privileges) || privileges.length == 0) {
             throw new Error("Privileges can not be empty"); // privileges can not be empty
         }
         // check for valid role to prevent duplicate enty
@@ -64,18 +65,18 @@ class Roles extends privileges.Privileges {
     }
     role_update(newRole, newPrivileges, oldRole) {
         // updates one row
-        if (newRole === "") {
+        if (util_1.isUndefined(newRole) || newRole === "") {
             throw new Error("newRole can not be empty"); //checking empty newRole   
         }
-        if (newPrivileges.length == 0) {
+        if (util_1.isUndefined(newPrivileges) || newPrivileges.length == 0) {
             throw new Error("newPrevileges cannot zero length array"); //checking for zero length newPrivileges
         }
-        if (oldRole === "") {
+        if (util_1.isUndefined(oldRole) || oldRole === "") {
             throw new Error("oldRole can not empty"); //checking for empty old role
         }
         // validate newRole (prvents duplicate role)
         // check for valid role to prevent duplicate enty
-        if (this.validate_role(newRole) != false) {
+        if ((this.validate_role(newRole) != false) && (newRole != oldRole)) {
             throw new Error(newRole + " this is duplicate entry not allowed");
         }
         // check valid privileges

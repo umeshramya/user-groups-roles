@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 /*class for implimanting users*/
 const roles = require("./roles");
+const util_1 = require("util");
 class Users extends roles.Roles {
     constructor(dbPath = "./json") {
         super(dbPath);
@@ -33,34 +34,37 @@ class Users extends roles.Roles {
         //get role of the user
         let role = this.validate_user(user)[1][1];
         // get the declered privileges of roles got
-        let privileges = this.get_role_privilegs(role);
+        let privileges = this.get_role_privilegs(role)[1];
         //add undeclerred privileges on the fly for just showing with defulat values
         let allPrivileges = this.get_all_prvileges();
         // return the privileges
-        let returnPrivileges;
-        if (privileges.length <= allPrivileges.length) {
-            for (let index = 0; index < privileges.length; index++) {
-                //write code for here 
+        let curPrivilege;
+        let curDefualt;
+        for (let index = 0; index < privileges.length; index++) {
+            curPrivilege = privileges[index][0];
+            curDefualt = privileges[index][1];
+            for (let i = 0; i < allPrivileges.length; i++) {
+                if (allPrivileges[i][0] === curPrivilege) {
+                    allPrivileges[i][1] = curDefualt;
+                }
             }
         }
-        else {
-            throw new Error("This users role has some undefined privileges kindly rectify them");
-        }
+        return allPrivileges;
     }
     user_insert(user, role) {
         // insert one row
-        if (user === "") {
+        if (util_1.isUndefined(user) || user === "") {
             throw new Error("user field cann be empty");
         }
-        if (role === "") {
+        if (util_1.isUndefined(role) || role === "") {
             throw new Error("role field can not empty");
         }
         // validate user 
         if (this.validate_user(user) != false) {
             throw new Error("duplicate user is not allowed");
         }
-        // check for valid role to prevent duplicate enty
-        if (this.validate_role(role) != false) {
+        // check for valid role to asign only valid entry
+        if (this.validate_role(role) == false) {
             throw new Error(role + "  duplicate role entry not allowed");
         }
         super.user_insert(user, role);
@@ -68,19 +72,19 @@ class Users extends roles.Roles {
     user_update(newUser, newRole, oldUser) {
         // updates one row
         // check for empty newUser
-        if (newUser === "") {
+        if (util_1.isUndefined(newUser) || newUser === "") {
             throw new Error("newRole can not empty");
         }
         // check for empty newRole
-        if (newRole === "") {
+        if (util_1.isUndefined(newRole) || newRole === "") {
             throw new Error("newRole can not be empty");
         }
         // check for empty oldUser
-        if (oldUser === "") {
+        if (util_1.isUndefined(oldUser) || oldUser === "") {
             throw new Error("oldUser can notbe empty");
         }
         // check for valid new user (to prvent duplicate) i.e if return is false;
-        if (this.validate_user(newUser) != false) {
+        if (this.validate_user(newUser) != false && newUser != oldUser) {
             throw new Error(newUser + " duplicate newUser is invalid");
         }
         // check for valid newRole (aloow only which prsent in roles.json);

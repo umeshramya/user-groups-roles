@@ -31,6 +31,13 @@ curRole.privilege_update("alter_voucher", "permission to alter existing voucher"
 
 // delete
 curRole.privilege_delete("delete_voucher")
+
+// get all priviegs with description
+curRole.get_privilege_table();
+
+//get all privileges of from the table deducting descrptons
+curRole.get_all_prvileges();
+
 ```
 ## CRUD opertation for roles.json
 ```
@@ -85,15 +92,55 @@ curRole.role_update("contributor", [
 
 ], "contributor")
 
+
+curRole.role_update("subscriber", [
+    ["create_voucher", false],
+    ["alter_voucher", false],
+    ["delete_voucher", false],
+    ["voucher_date", -1]
+
+], "contributor")
+
 // // delete
 curRole.role_delete("contributor");
+
+// get all role table
+curRole.get_roles_table();
 
 ```
 
 
 ## CRUD operation for users.json
 ```
-write code here
+
+
+/*
+=================
+CRUD users.json
+================
+*/
+
+// insert
+curRole.user_insert("ramya", "admin");
+curRole.user_insert("umeshbilagi", "editor");
+
+// update
+curRole.user_update("umeshbilagi", "subscriber", "umeshbilagi");
+curRole.user_update("rajiv", "editor", "umeshbilagi");
+
+
+// delete
+curRole.user_delete("rajiv")
+
+// get table
+
+// get user privileges
+curRole.get_user_privileges("umeshbilagi");
+
+
+// get all users table
+curRole.get_users_table();
+
 ```
 
 ### users
