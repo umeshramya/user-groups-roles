@@ -14,12 +14,87 @@ var curRole = new   role.UserGroupsRoles("test");
 
 ```
 ## CRUD operatation for privileges.json
+```
+/*
+============================
+ CRUD privileges.json
+===========================
+ */
+// insert
+curRole.privilege_insert("create_voucher", "permision to create new voucher", true);
+curRole.privilege_insert("edit_voucher", "permission to modify voucher", false);
+curRole.privilege_insert("delete_voucher", "permision to modify voucher", false);
+curRole.privilege_insert("voucher_date","alter or delete voucher date 0 = no date range, -1 = 'can not modify date, more than 0 = number date range", 0);
 
+// update
+curRole.privilege_update("alter_voucher", "permission to alter existing voucher", true,"edit_voucher");
 
+// delete
+write code here
+```
 ## CRUD opertation for roles.json
+```
+
+/*
+======================
+CRUD roles.json
+=====================
+*/ 
+
+// insert 
+
+curRole.role_insert("admin", [
+    ["create_voucher", true],
+    ["alter_voucher", true],
+    ["delete_voucher", true],
+    ["voucher_date", 0]
+
+]);
+
+curRole.role_insert("editor", [
+    ["create_voucher", true],
+    ["alter_voucher", true],
+    ["delete_voucher", false],
+    ["voucher_date", 30]
+
+]);
+
+curRole.role_insert("author", [
+    ["create_voucher", true],
+    ["alter_voucher", false],
+    ["delete_voucher", false],
+    ["voucher_date", -1]
+
+]);
+
+curRole.role_insert("contributor", [
+    ["create_voucher", true],
+    ["alter_voucher", false],
+    ["delete_voucher", false],
+    ["voucher_date", -1]
+
+]);
+
+// update
+
+curRole.role_update("contributor", [
+    ["create_voucher", false],
+    ["alter_voucher", false],
+    ["delete_voucher", false],
+    ["voucher_date", -1]
+
+], "contributor")
+
+// // delete
+curRole.role_delete("contributor");
+
+```
 
 
 ## CRUD operation for users.json
+```
+curRole.privilege_delete("delete_voucher")
+```
 
 ### users
 Users are created from the other  modules are used in this module. This module does not need a password. This also does not authenticate users. software developers are required to pass authenticated users to this module.
@@ -59,7 +134,7 @@ These are created by a software developer, not by admin. Admin user can not crea
 ```
 
 ## To Do
-1. After update of privileges it has check ever role and make update of that prvileges
-2. after upadte of role it has check evry user and make update of role
-3. write thos code get_user_privileges() in user.ts
-4. write tests
+1. After update of privileges it has check every role and make update of that prvilege
+2. After upadte of role, it has check every user and make update of that role.
+3. Write thos code get_user_privileges() in user.ts
+4. Write tests

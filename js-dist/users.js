@@ -31,9 +31,21 @@ class Users extends roles.Roles {
     get_user_privileges(user) {
         // this is for getting privileges for given user
         //get role of the user
+        let role = this.validate_user(user)[1][1];
         // get the declered privileges of roles got
+        let privileges = this.get_role_privilegs(role);
         //add undeclerred privileges on the fly for just showing with defulat values
+        let allPrivileges = this.get_all_prvileges();
         // return the privileges
+        let returnPrivileges;
+        if (privileges.length <= allPrivileges.length) {
+            for (let index = 0; index < privileges.length; index++) {
+                //write code for here 
+            }
+        }
+        else {
+            throw new Error("This users role has some undefined privileges kindly rectify them");
+        }
     }
     user_insert(user, role) {
         // insert one row

@@ -5,6 +5,15 @@ class Privileges extends access.Access {
     constructor(dbPath = "./json") {
         super(dbPath);
     }
+    get_all_prvileges() {
+        // this return the array of all privileges and defualt value without discription
+        let curTable = this.get_privilege_table();
+        let retunPrivileges;
+        for (let index = 1; index < curTable.length; index++) {
+            retunPrivileges[index] = [curTable[index][0], curTable[index][2]];
+        }
+        return retunPrivileges;
+    }
     validate_single_privilege(privilege) {
         //returns the index at 0 with table row as array at 1
         // else it retrns false clearing for new insert

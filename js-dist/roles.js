@@ -27,6 +27,17 @@ class Roles extends privileges.Privileges {
             }
         }
     }
+    get_role_privilegs(role) {
+        // this return the array of privileges declered for roles.json
+        // return false if role is nor found
+        let crutTable = this.get_roles_table();
+        for (let index = 0; index < crutTable.length; index++) {
+            if (crutTable[index][0] == role) {
+                return crutTable[index];
+            }
+        }
+        return false;
+    }
     role_insert(role, privileges) {
         // insert one row
         /*
