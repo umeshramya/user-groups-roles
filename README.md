@@ -180,8 +180,3 @@ These are created by a software developer, not by admin. Admin user can not crea
 
 ```
 
-## To Do
-1. After update of privileges it has check every role and make update of that prvilege
-2. After upadte of role, it has check every user and make update of that role.
-3. Write thos code get_user_privileges() in user.ts
-4. Write tests
