@@ -93,7 +93,7 @@ class Privileges extends access.Access {
         let curTable = this.get_roles_table();
         for (let index = 1; index < curTable.length; index++) {
             for (let i = 0; i < curTable[index][1].length; i++) {
-                if (curTable[index][1][i][0] == newPrivilege) {
+                if (curTable[index][1][i][0] == oldPrvivlege) {
                     curTable[index][1][i][0] = newPrivilege;
                 }
             }
