@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/umeshramya/user-groups-roles#readme",
   "dependencies": {
-    "crud-json-array": "0.0.6"
+    "crud-json-array": "0.0.7"
   },
   "devDependencies": {
     "@types/node": "^8.5.2",

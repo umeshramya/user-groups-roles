@@ -44,6 +44,10 @@ export class Access{
         // delets one row
         crudUsers.delete_one_row([0, user]);
     }
+    protected users_full_table_update(curTable:any[]){
+        // this updates the privileges.json in one short
+        crudUsers.write_full_table_in_bulk(curTable);
+    }
 
     /*
         ================
@@ -72,6 +76,10 @@ export class Access{
         crudRoles.delete_one_row([0, role]);
 
     }
+    protected roles_full_table_update(curTable:any[]){
+        // this updates the privileges.json in one short
+        crudRoles.write_full_table_in_bulk(curTable);
+    }
 
     /*
         =====================
@@ -91,11 +99,18 @@ export class Access{
     protected get_privilege_table(){
         // gets privileges.json table from memory
         return crudPrivileges.read_table_in_memory();
+        
     }
 
     protected privilege_delete(privilege:string){
         // deletes one privilege
         crudPrivileges.delete_one_row([0,privilege]);
+    }
+
+    protected privileges_full_table_update(curTable:any[]){
+        // this updates the privileges.json in one short
+        crudPrivileges.write_full_table_in_bulk(curTable);
+        
     }
 
 }

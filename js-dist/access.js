@@ -33,6 +33,10 @@ class Access {
         // delets one row
         crudUsers.delete_one_row([0, user]);
     }
+    users_full_table_update(curTable) {
+        // this updates the privileges.json in one short
+        crudUsers.write_full_table_in_bulk(curTable);
+    }
     /*
         ================
         roles.json CRUD
@@ -54,6 +58,10 @@ class Access {
         // deletes single row
         crudRoles.delete_one_row([0, role]);
     }
+    roles_full_table_update(curTable) {
+        // this updates the privileges.json in one short
+        crudRoles.write_full_table_in_bulk(curTable);
+    }
     /*
         =====================
         privileges.json CRUD
@@ -74,6 +82,10 @@ class Access {
     privilege_delete(privilege) {
         // deletes one privilege
         crudPrivileges.delete_one_row([0, privilege]);
+    }
+    privileges_full_table_update(curTable) {
+        // this updates the privileges.json in one short
+        crudPrivileges.write_full_table_in_bulk(curTable);
     }
 }
 exports.Access = Access;

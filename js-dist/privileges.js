@@ -77,7 +77,9 @@ class Privileges extends access.Access {
             throw new Error(newPrivilege + " invalid duplicate new privilege");
         }
         //code to update roles.json table i.e replace oldPrvivlege by newPrivilege  
-        this.update_privilege_of_roles_table_by_privilege_update(newPrivilege, oldPrivalge);
+        let privilegeRoles = this.update_privilege_of_roles_table_by_privilege_update(newPrivilege, oldPrivalge);
+        //push this curTable to role.json file in one short.
+        this.roles_full_table_update(privilegeRoles);
     }
     update_privilege_of_roles_table_by_privilege_update(newPrivilege, oldPrvivlege) {
         // this update the role table privileges in case of change in privileges names by privileges.json update
