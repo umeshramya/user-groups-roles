@@ -90,7 +90,35 @@ export class Privileges extends access.Access{
         }else{
             throw new Error (newPrivilege + " invalid duplicate new privilege");
         }
+        //code to update roles.json table i.e replace oldPrvivlege by newPrivilege  
+        this.update_privilege_of_roles_table_by_privilege_update(newPrivilege, oldPrivalge);
+        
       
+    }
+
+
+    update_privilege_of_roles_table_by_privilege_update(newPrivilege:string, oldPrvivlege:string){
+        // this update the role table privileges in case of change in privileges names by privileges.json update
+        // similer casacading effect
+        if(isUndefined(newPrivilege) || newPrivilege === ""){
+            throw new Error("newPrivileges can not be empty");
+        }
+
+        if (isUndefined(oldPrvivlege) || oldPrvivlege === ""){
+            throw new Error("oldPrivileges can not be empty");
+        }
+
+        let curTable:any = this.get_roles_table();
+        for (let index = 1; index < curTable.length; index++) {
+            for (let i = 0; i < curTable[index][1].length; i++) {
+                if(curTable[index][1][i][0] == newPrivilege){
+                    curTable[index][1][i][0] = newPrivilege;
+                }
+            }
+        }
+        
+        return curTable;
+
     }
 
     privilege_delete(privilege:string){
