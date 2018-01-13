@@ -107,12 +107,12 @@ export class Roles extends privileges.Privileges{
         // check for valid newPrivilages
         super.role_update(newRole, newPrivileges, oldRole);
         // update users.json roles by changes in roles.json role names
-        let userRolesTable = this.update_role_of_users_table_by_roles_update(newRole, oldRole);
+        let userRolesTable = this.cascade_update_roles_of_users_table_by_roles_table_update(newRole, oldRole);
         this.users_full_table_update(userRolesTable);
 
     }
 
-    update_role_of_users_table_by_roles_update(newRole:string, oldRole:string){
+    protected cascade_update_roles_of_users_table_by_roles_table_update(newRole:string, oldRole:string){
         // this updates users.json table for roles updateing in roles.json
         // cascading effect
         if(isUndefined(newRole) || newRole==""){
@@ -132,10 +132,32 @@ export class Roles extends privileges.Privileges{
         return curTable;
     }
 
+    protected cascade_delete_prevent_role_table_by_user_table(role:string){
+        // this prevents the delete roles in case the role is present in user table
 
+        if(isUndefined(role) || role == ""){
+            throw new Error("role can not be empty");
+        }
+
+        let curTable:any[] = this.get_users_table();
+        for (let index = 0; index < curTable.length; index++) {
+            if (curTable[index][1]== role){
+                throw new Error(role + " is used in user.json table so not allowed");
+            }
+            
+        }
+        return true
+
+    }
     role_delete(role:string){
         // deletes single row
-       super.role_delete(role);
+        // code to prevent delete in case role is present in users.json 
+        // cascade prevent delete
+        let deleteRow:boolean | any = this.cascade_delete_prevent_role_table_by_user_table(role);
+        if(isUndefined(role) || role == ""){
+            throw new Error ("role can not be empty");
+        }
+        super.role_delete(role);
 
     }
    

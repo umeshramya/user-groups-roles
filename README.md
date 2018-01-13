@@ -1,5 +1,4 @@
 # user-groups-roles
-## Under Development
 This module is meant for creating user, groups or roles and privileges.
 
 #### To install use this command
@@ -10,7 +9,7 @@ This module is meant for creating user, groups or roles and privileges.
 var role = require("user-groups-roles");
 var curRole = new   role.UserGroupsRoles("test");
 // from above code test folder is creted inside your project with three files
-// test/prvileges.json, test/roles.json, user.json
+// test/prvileges.json, test/roles.json, test/user.json
 
 ```
 ## CRUD operatation for privileges.json

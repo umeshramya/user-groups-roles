@@ -91,7 +91,7 @@ export class Privileges extends access.Access{
             throw new Error (newPrivilege + " invalid duplicate new privilege");
         }
         //code to update roles.json table i.e replace oldPrvivlege by newPrivilege  
-        let privilegeRoles = this.update_privilege_of_roles_table_by_privilege_update(newPrivilege, oldPrivalge);
+        let privilegeRoles = this.cascade_update_privileges_of_roles_table_by_privilege_table_update(newPrivilege, oldPrivalge);
         //push this curTable to role.json file in one short.
         this.roles_full_table_update(privilegeRoles);
         
@@ -99,7 +99,7 @@ export class Privileges extends access.Access{
     }
 
 
-    update_privilege_of_roles_table_by_privilege_update(newPrivilege:string, oldPrvivlege:string){
+    protected cascade_update_privileges_of_roles_table_by_privilege_table_update(newPrivilege:string, oldPrvivlege:string){
         // this update the role table privileges in case of change in privileges names by privileges.json update
         // similer casacading effect
         if(isUndefined(newPrivilege) || newPrivilege === ""){
@@ -124,10 +124,35 @@ export class Privileges extends access.Access{
 
     }
 
+
+    protected cascade_delete_prevent_privilege_table_by_role_table(privilege:string){
+        // this prevents delete of privilege  privilegs.json in case the privilege is used in roles.json 
+
+
+        if (isUndefined(privilege) || privilege === ""){
+            throw new Error("oldPrivileges can not be empty");
+        }
+
+        let curTable:any = this.get_roles_table();
+        for (let index = 1; index < curTable.length; index++) {
+            for (let i = 0; i < curTable[index][1].length; i++) {
+                if(curTable[index][1][i][0] == privilege){
+                    throw new Error(privilege + " is used in roles.json not allowed");
+                    
+                }
+            }
+        }
+        
+        return true;
+
+    }
+
     privilege_delete(privilege:string){
         // deletes one privilege
         // write code of validation
-        if(privilege == ""){
+        // cascade prevent delte in case privilege is used in roles.json table
+        let deletePrvilege = this.cascade_delete_prevent_privilege_table_by_role_table(privilege);
+        if(isUndefined(privilege)  || privilege == ""){
             throw new Error ("Privilege name not given");
         }
         super.privilege_delete(privilege);
