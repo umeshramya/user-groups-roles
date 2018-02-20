@@ -29,7 +29,7 @@ export class Roles extends privileges.Privileges{
         for (let index = 0; index < privileges.length; index++) {
            validPrivilege = this.validate_single_privilege(privileges[index][0]);
            if(validPrivilege == false){
-               throw new Error (validPrivilege + " is invalid privilege");
+               throw  (validPrivilege + " is invalid privilege");
            }
             
         }
@@ -62,15 +62,15 @@ export class Roles extends privileges.Privileges{
                 ]
         */ 
         if (isUndefined(role) || role == ""){
-            throw new Error("role field is compulsory");// role can nor be empty
+            throw ("role field is compulsory");// role can nor be empty
         }
         if (isUndefined(privileges) || privileges.length ==0){
-            throw new Error ("Privileges can not be empty")// privileges can not be empty
+            throw  ("Privileges can not be empty")// privileges can not be empty
         } 
 
         // check for valid role to prevent duplicate enty
         if(this.validate_role(role) != false){
-            throw new Error (role + " this is duplicate entry, suggested to use update for modifications");
+            throw  (role + " this is duplicate entry, suggested to use update for modifications");
         }
         // check valid privileges
         this.validate_privileges(privileges);
@@ -83,21 +83,21 @@ export class Roles extends privileges.Privileges{
     role_update(newRole:string, newPrivileges:any[], oldRole:string){
         // updates one row
         if  (isUndefined(newRole) || newRole === ""){
-            throw new Error("newRole can not be empty");//checking empty newRole   
+            throw ("newRole can not be empty");//checking empty newRole   
         }
 
         if( isUndefined(newPrivileges) || newPrivileges.length == 0){
-            throw new Error("newPrevileges cannot zero length array");//checking for zero length newPrivileges
+            throw ("newPrevileges cannot zero length array");//checking for zero length newPrivileges
         }
 
         if(isUndefined(oldRole) || oldRole === ""){
-            throw new Error("oldRole can not empty");//checking for empty old role
+            throw ("oldRole can not empty");//checking for empty old role
         }
 
         // validate newRole (prvents duplicate role)
         // check for valid role to prevent duplicate enty
         if((this.validate_role(newRole) != false)  && (newRole != oldRole) ){
-            throw new Error (newRole + " this is duplicate entry not allowed");
+            throw  (newRole + " this is duplicate entry not allowed");
         }
         
 
@@ -116,10 +116,10 @@ export class Roles extends privileges.Privileges{
         // this updates users.json table for roles updateing in roles.json
         // cascading effect
         if(isUndefined(newRole) || newRole==""){
-            throw new Error("newRole can not be empty");
+            throw ("newRole can not be empty");
         }
         if(isUndefined(oldRole) || oldRole == ""){
-            throw new Error("oldRole can not be empty");
+            throw ("oldRole can not be empty");
         }
 
         let curTable:any[] = this.get_users_table();
@@ -136,13 +136,13 @@ export class Roles extends privileges.Privileges{
         // this prevents the delete roles in case the role is present in user table
 
         if(isUndefined(role) || role == ""){
-            throw new Error("role can not be empty");
+            throw ("role can not be empty");
         }
 
         let curTable:any[] = this.get_users_table();
         for (let index = 0; index < curTable.length; index++) {
             if (curTable[index][1]== role){
-                throw new Error(role + " is used in user.json table so not allowed");
+                throw (role + " is used in user.json table so not allowed");
             }
             
         }
@@ -155,7 +155,7 @@ export class Roles extends privileges.Privileges{
         // cascade prevent delete
         let deleteRow:boolean | any = this.cascade_delete_prevent_role_table_by_user_table(role);
         if(isUndefined(role) || role == ""){
-            throw new Error ("role can not be empty");
+            throw  ("role can not be empty");
         }
         super.role_delete(role);
 

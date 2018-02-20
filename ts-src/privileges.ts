@@ -23,7 +23,7 @@ export class Privileges extends access.Access{
          //returns the index at 0 with table row as array at 1
         // else it retrns false clearing for new insert
         if (isUndefined(privilege) || privilege == ""){
-            throw new Error ("Privilege can be empty");
+            throw  ("Privilege can be empty");
         }
         let curTable:any = this.get_privilege_table();
         for (let index = 0; index < curTable.length; index++) {
@@ -37,17 +37,17 @@ export class Privileges extends access.Access{
     privilege_insert(curPrivilege:string, curDescription:string, curDefualt:any){
         
         if (isUndefined(curPrivilege) ||  curPrivilege == ""){// check  are privilege field
-            throw new Error ( "privilege field is  compulsory");
+            throw  ( "privilege field is  compulsory");
         }
 
         if (isUndefined(curDescription) || curDescription == ""){// check for description field
-            throw new Error ( "description field is  compulsory");
+            throw  ( "description field is  compulsory");
         }
         if ((curDefualt == true) || (curDefualt == false)) {// check for defualt field
             // pass 
         }else{
             if (isUndefined(curDefualt) || curDefualt != ""){
-                throw new Error ( "defualt field is  compulsory");
+                throw  ( "defualt field is  compulsory");
             }
             
         }
@@ -59,7 +59,7 @@ export class Privileges extends access.Access{
             super.privilege_insert(curPrivilege, curDescription, curDefualt);
 
         }else{
-            throw new Error(curPrivilege + " invalid duplicate privilege");
+            throw (curPrivilege + " invalid duplicate privilege");
         }
      
 
@@ -69,16 +69,16 @@ export class Privileges extends access.Access{
         //update one privalage
         // write code of validation
         if(isUndefined(newPrivilege) ||  newPrivilege === ""){// check newPrivilege field
-            throw new Error ("newPrivilege field is compulsory");
+            throw  ("newPrivilege field is compulsory");
         }
         if(isUndefined(newDescription) || newDescription === ""){// check for new description field
-            throw new Error ("newDescription field is compulsory");
+            throw  ("newDescription field is compulsory");
         }
         if( isUndefined(newDefualt) || newDefualt ===""){// check for newDedualt field
-            throw new Error ("newDefualt field is compulsory");
+            throw  ("newDefualt field is compulsory");
         }
         if(isUndefined(oldPrivalge) || oldPrivalge === ""){//check for old
-            throw new Error ("oldPrivalge field is compulsory");
+            throw  ("oldPrivalge field is compulsory");
         }
 
         
@@ -88,7 +88,7 @@ export class Privileges extends access.Access{
         if ((checkUpdate != false && newPrivilege == oldPrivalge) ||(newPrivilege != oldPrivalge)){
             super.privilege_update(newPrivilege, newDescription, newDefualt, oldPrivalge);
         }else{
-            throw new Error (newPrivilege + " invalid duplicate new privilege");
+            throw  (newPrivilege + " invalid duplicate new privilege");
         }
         //code to update roles.json table i.e replace oldPrvivlege by newPrivilege  
         let privilegeRoles = this.cascade_update_privileges_of_roles_table_by_privilege_table_update(newPrivilege, oldPrivalge);
@@ -103,11 +103,11 @@ export class Privileges extends access.Access{
         // this update the role table privileges in case of change in privileges names by privileges.json update
         // similer casacading effect
         if(isUndefined(newPrivilege) || newPrivilege === ""){
-            throw new Error("newPrivileges can not be empty");
+            throw ("newPrivileges can not be empty");
         }
 
         if (isUndefined(oldPrvivlege) || oldPrvivlege === ""){
-            throw new Error("oldPrivileges can not be empty");
+            throw ("oldPrivileges can not be empty");
         }
 
         let curTable:any = this.get_roles_table();
@@ -130,14 +130,14 @@ export class Privileges extends access.Access{
 
 
         if (isUndefined(privilege) || privilege === ""){
-            throw new Error("oldPrivileges can not be empty");
+            throw ("oldPrivileges can not be empty");
         }
 
         let curTable:any = this.get_roles_table();
         for (let index = 1; index < curTable.length; index++) {
             for (let i = 0; i < curTable[index][1].length; i++) {
                 if(curTable[index][1][i][0] == privilege){
-                    throw new Error(privilege + " is used in roles.json not allowed");
+                    throw (privilege + " is used in roles.json not allowed");
                     
                 }
             }
@@ -153,7 +153,7 @@ export class Privileges extends access.Access{
         // cascade prevent delte in case privilege is used in roles.json table
         let deletePrvilege = this.cascade_delete_prevent_privilege_table_by_role_table(privilege);
         if(isUndefined(privilege)  || privilege == ""){
-            throw new Error ("Privilege name not given");
+            throw  ("Privilege name not given");
         }
         super.privilege_delete(privilege);
     }
