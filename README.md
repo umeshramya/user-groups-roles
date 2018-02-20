@@ -1,4 +1,8 @@
 # user-groups-roles
+![verson](https://img.shields.io/badge/version-1.0.5-green.svg)
+![License](https://img.shields.io/badge/License-MIT-yellowgreen.svg)
+
+
 This module is meant for creating user, groups or roles and privileges.
 
 #### To install use this command
