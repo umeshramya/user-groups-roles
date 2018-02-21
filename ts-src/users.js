@@ -65,7 +65,7 @@ class Users extends roles.Roles {
         }
         // check for valid role to asign only valid entry
         if (this.validate_role(role) == false) {
-            throw (role + "  duplicate role entry not allowed");
+            throw (role + "  invalid role");
         }
         super.user_insert(user, role);
     }
