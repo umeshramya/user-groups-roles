@@ -1,6 +1,6 @@
 {
   "name": "user-groups-roles",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "This modules defines user roles as according defined roles. This also ads prevalages to roles. Thus it returns the status of prevalage for every request. This is middlewere (express)\",",
   "main": "index.js",
   "scripts": {
