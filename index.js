@@ -1,36 +1,24 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-exports.__esModule = true;
-var imp = require("./ts-src/users");
-var UserGroupsRoles = /** @class */ (function (_super) {
-    __extends(UserGroupsRoles, _super);
-    function UserGroupsRoles(dbPath) {
-        if (dbPath === void 0) { dbPath = "./json"; }
-        return _super.call(this, dbPath) || this;
+Object.defineProperty(exports, "__esModule", { value: true });
+const imp = require("./ts-src/users");
+class UserGroupsRoles extends imp.Users {
+    constructor(dbPath = "./json") {
+        super(dbPath);
     }
     // privileges
-    UserGroupsRoles.prototype.privilege_insert = function (curPrivilege, curDescription, curDefualt) {
-        _super.prototype.privilege_insert.call(this, curPrivilege, curDescription, curDefualt);
-    };
-    UserGroupsRoles.prototype.privilege_update = function (newPrivilege, newDescription, newDefualt, oldPrivilege) {
-        _super.prototype.privilege_update.call(this, newPrivilege, newDescription, newDefualt, oldPrivilege);
-    };
-    UserGroupsRoles.prototype.privilege_delete = function (privilege) {
-        _super.prototype.privilege_delete.call(this, privilege);
-    };
+    privilege_insert(curPrivilege, curDescription, curDefualt) {
+        super.privilege_insert(curPrivilege, curDescription, curDefualt);
+    }
+    privilege_update(newPrivilege, newDescription, newDefualt, oldPrivilege) {
+        super.privilege_update(newPrivilege, newDescription, newDefualt, oldPrivilege);
+    }
+    privilege_delete(privilege) {
+        super.privilege_delete(privilege);
+    }
     //roles
-    UserGroupsRoles.prototype.role_insert = function (role, privileges) {
+    role_insert(role, privileges) {
         try {
-            _super.prototype.role_insert.call(this, role, privileges);
+            super.role_insert(role, privileges);
         }
         catch (error) {
             if (error == role + " this is duplicate entry, suggested to use update for modifications") {
@@ -39,17 +27,17 @@ var UserGroupsRoles = /** @class */ (function (_super) {
                 throw (error);
             }
         }
-    };
-    UserGroupsRoles.prototype.role_update = function (newRole, newPrivileges, oldRole) {
-        _super.prototype.role_update.call(this, newRole, newPrivileges, oldRole);
-    };
-    UserGroupsRoles.prototype.role_delete = function (role) {
-        _super.prototype.role_delete.call(this, role);
-    };
+    }
+    role_update(newRole, newPrivileges, oldRole) {
+        super.role_update(newRole, newPrivileges, oldRole);
+    }
+    role_delete(role) {
+        super.role_delete(role);
+    }
     // users
-    UserGroupsRoles.prototype.user_insert = function (user, role) {
+    user_insert(user, role) {
         try {
-            _super.prototype.user_insert.call(this, user, role);
+            super.user_insert(user, role);
         }
         catch (error) {
             if (error == "duplicate user is not allowed") {
@@ -58,13 +46,12 @@ var UserGroupsRoles = /** @class */ (function (_super) {
                 throw (error);
             }
         }
-    };
-    UserGroupsRoles.prototype.user_update = function (newUser, newRole, oldUser) {
-        _super.prototype.user_update.call(this, newUser, newRole, oldUser);
-    };
-    UserGroupsRoles.prototype.user_delete = function (user) {
-        _super.prototype.user_delete.call(this, user);
-    };
-    return UserGroupsRoles;
-}(imp.Users));
+    }
+    user_update(newUser, newRole, oldUser) {
+        super.user_update(newUser, newRole, oldUser);
+    }
+    user_delete(user) {
+        super.user_delete(user);
+    }
+}
 exports.UserGroupsRoles = UserGroupsRoles;
