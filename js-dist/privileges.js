@@ -50,9 +50,6 @@ class Privileges extends access.Access {
             // false suggest this privilege is not found in table
             super.privilege_insert(curPrivilege, curDescription, curDefualt);
         }
-        else {
-            throw (curPrivilege + " invalid duplicate privilege");
-        }
     }
     privilege_update(newPrivilege, newDescription, newDefualt, oldPrivalge) {
         //update one privalage

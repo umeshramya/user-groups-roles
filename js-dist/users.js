@@ -15,7 +15,7 @@ class Users extends roles.Roles {
                 return curTable[index][1];
             }
         }
-        throw new Error(user + " is not valid user");
+        throw (user + " is not valid user");
     }
     validate_user(user) {
         // this checks for presence of user it returns the user row if present else returns false
@@ -54,18 +54,18 @@ class Users extends roles.Roles {
     user_insert(user, role) {
         // insert one row
         if (util_1.isUndefined(user) || user === "") {
-            throw new Error("user field cann be empty");
+            throw ("user field cann be empty");
         }
         if (util_1.isUndefined(role) || role === "") {
-            throw new Error("role field can not empty");
+            throw ("role field can not empty");
         }
         // validate user 
         if (this.validate_user(user) != false) {
-            throw new Error("duplicate user is not allowed");
+            throw ("duplicate user is not allowed");
         }
         // check for valid role to asign only valid entry
         if (this.validate_role(role) == false) {
-            throw new Error(role + "  duplicate role entry not allowed");
+            throw (role + "  duplicate role entry not allowed");
         }
         super.user_insert(user, role);
     }
@@ -73,23 +73,23 @@ class Users extends roles.Roles {
         // updates one row
         // check for empty newUser
         if (util_1.isUndefined(newUser) || newUser === "") {
-            throw new Error("newRole can not empty");
+            throw ("newRole can not empty");
         }
         // check for empty newRole
         if (util_1.isUndefined(newRole) || newRole === "") {
-            throw new Error("newRole can not be empty");
+            throw ("newRole can not be empty");
         }
         // check for empty oldUser
         if (util_1.isUndefined(oldUser) || oldUser === "") {
-            throw new Error("oldUser can notbe empty");
+            throw ("oldUser can notbe empty");
         }
         // check for valid new user (to prvent duplicate) i.e if return is false;
         if (this.validate_user(newUser) != false && newUser != oldUser) {
-            throw new Error(newUser + " duplicate newUser is invalid");
+            throw (newUser + " duplicate newUser is invalid");
         }
         // check for valid newRole (aloow only which prsent in roles.json);
         if (this.validate_role(newRole) == false) {
-            throw new Error(newRole + " is invalid role");
+            throw (newRole + " is invalid role");
         }
         super.user_update(newUser, newRole, oldUser);
     }

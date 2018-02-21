@@ -2,6 +2,8 @@
 #Typescript and map file
 *.ts
 *.js.map
+tsconfig.json
+
 
 # Logs
 logs
