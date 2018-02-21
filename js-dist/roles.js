@@ -1,45 +1,57 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-const privileges = require("./privileges");
-const util_1 = require("util");
-class Roles extends privileges.Privileges {
-    constructor(dbPath = "./json") {
-        super(dbPath);
+var privileges = require("./privileges");
+var util_1 = require("util");
+var Roles = /** @class */ (function (_super) {
+    __extends(Roles, _super);
+    function Roles(dbPath) {
+        if (dbPath === void 0) { dbPath = "./json"; }
+        return _super.call(this, dbPath) || this;
     }
-    validate_role(role) {
+    Roles.prototype.validate_role = function (role) {
         // this check for duplicate roles entry
         // return the role if found or return false if not found
-        let crutTable = this.get_roles_table();
-        for (let index = 0; index < crutTable.length; index++) {
+        var crutTable = this.get_roles_table();
+        for (var index = 0; index < crutTable.length; index++) {
             if (crutTable[index][0] == role) {
                 return [index, crutTable[index]];
             }
         }
         return false; // this will allow new role entry
-    }
-    validate_privileges(privileges) {
+    };
+    Roles.prototype.validate_privileges = function (privileges) {
         // this validate array of privileges
         // throws error if privilege is not declered in privileges.json table
-        let validPrivilege;
-        for (let index = 0; index < privileges.length; index++) {
+        var validPrivilege;
+        for (var index = 0; index < privileges.length; index++) {
             validPrivilege = this.validate_single_privilege(privileges[index][0]);
             if (validPrivilege == false) {
                 throw (validPrivilege + " is invalid privilege");
             }
         }
-    }
-    get_role_privilegs(role) {
+    };
+    Roles.prototype.get_role_privilegs = function (role) {
         // this return the array of privileges declered for roles.json
         // return false if role is nor found
-        let crutTable = this.get_roles_table();
-        for (let index = 0; index < crutTable.length; index++) {
+        var crutTable = this.get_roles_table();
+        for (var index = 0; index < crutTable.length; index++) {
             if (crutTable[index][0] == role) {
                 return crutTable[index];
             }
         }
         return false;
-    }
-    role_insert(role, privileges) {
+    };
+    Roles.prototype.role_insert = function (role, privileges) {
         // insert one row
         /*
          author : [
@@ -61,9 +73,9 @@ class Roles extends privileges.Privileges {
         }
         // check valid privileges
         this.validate_privileges(privileges);
-        super.role_insert(role, privileges);
-    }
-    role_update(newRole, newPrivileges, oldRole) {
+        _super.prototype.role_insert.call(this, role, privileges);
+    };
+    Roles.prototype.role_update = function (newRole, newPrivileges, oldRole) {
         // updates one row
         if (util_1.isUndefined(newRole) || newRole === "") {
             throw ("newRole can not be empty"); //checking empty newRole   
@@ -82,12 +94,12 @@ class Roles extends privileges.Privileges {
         // check valid privileges
         this.validate_privileges(newPrivileges);
         // check for valid newPrivilages
-        super.role_update(newRole, newPrivileges, oldRole);
+        _super.prototype.role_update.call(this, newRole, newPrivileges, oldRole);
         // update users.json roles by changes in roles.json role names
-        let userRolesTable = this.cascade_update_roles_of_users_table_by_roles_table_update(newRole, oldRole);
+        var userRolesTable = this.cascade_update_roles_of_users_table_by_roles_table_update(newRole, oldRole);
         this.users_full_table_update(userRolesTable);
-    }
-    cascade_update_roles_of_users_table_by_roles_table_update(newRole, oldRole) {
+    };
+    Roles.prototype.cascade_update_roles_of_users_table_by_roles_table_update = function (newRole, oldRole) {
         // this updates users.json table for roles updateing in roles.json
         // cascading effect
         if (util_1.isUndefined(newRole) || newRole == "") {
@@ -96,36 +108,37 @@ class Roles extends privileges.Privileges {
         if (util_1.isUndefined(oldRole) || oldRole == "") {
             throw ("oldRole can not be empty");
         }
-        let curTable = this.get_users_table();
-        for (let index = 0; index < curTable.length; index++) {
+        var curTable = this.get_users_table();
+        for (var index = 0; index < curTable.length; index++) {
             if (curTable[index][1] == oldRole) {
                 curTable[index][1] = newRole;
             }
         }
         return curTable;
-    }
-    cascade_delete_prevent_role_table_by_user_table(role) {
+    };
+    Roles.prototype.cascade_delete_prevent_role_table_by_user_table = function (role) {
         // this prevents the delete roles in case the role is present in user table
         if (util_1.isUndefined(role) || role == "") {
             throw ("role can not be empty");
         }
-        let curTable = this.get_users_table();
-        for (let index = 0; index < curTable.length; index++) {
+        var curTable = this.get_users_table();
+        for (var index = 0; index < curTable.length; index++) {
             if (curTable[index][1] == role) {
                 throw (role + " is used in user.json table so not allowed");
             }
         }
         return true;
-    }
-    role_delete(role) {
+    };
+    Roles.prototype.role_delete = function (role) {
         // deletes single row
         // code to prevent delete in case role is present in users.json 
         // cascade prevent delete
-        let deleteRow = this.cascade_delete_prevent_role_table_by_user_table(role);
+        var deleteRow = this.cascade_delete_prevent_role_table_by_user_table(role);
         if (util_1.isUndefined(role) || role == "") {
             throw ("role can not be empty");
         }
-        super.role_delete(role);
-    }
-}
+        _super.prototype.role_delete.call(this, role);
+    };
+    return Roles;
+}(privileges.Privileges));
 exports.Roles = Roles;
