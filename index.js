@@ -1,57 +1,38 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const imp = require("./ts-src/users");
-class UserGroupsRoles extends imp.Users {
-    constructor(dbPath = "./json") {
-        super(dbPath);
+var privileges =[];
+var roles = [];
+
+var setPrivileges = (name, description, defaultValue)=>{
+    // this sets the privileges
+    privileges.push = {
+        name : name,
+        description : description,
+        defualt : defaultValue
     }
-    // privileges
-    privilege_insert(curPrivilege, curDescription, curDefualt) {
-        super.privilege_insert(curPrivilege, curDescription, curDefualt);
-    }
-    privilege_update(newPrivilege, newDescription, newDefualt, oldPrivilege) {
-        super.privilege_update(newPrivilege, newDescription, newDefualt, oldPrivilege);
-    }
-    privilege_delete(privilege) {
-        super.privilege_delete(privilege);
-    }
-    //roles
-    role_insert(role, privileges) {
-        try {
-            super.role_insert(role, privileges);
-        }
-        catch (error) {
-            if (error == role + " this is duplicate entry, suggested to use update for modifications") {
-            }
-            else {
-                throw (error);
-            }
-        }
-    }
-    role_update(newRole, newPrivileges, oldRole) {
-        super.role_update(newRole, newPrivileges, oldRole);
-    }
-    role_delete(role) {
-        super.role_delete(role);
-    }
-    // users
-    user_insert(user, role) {
-        try {
-            super.user_insert(user, role);
-        }
-        catch (error) {
-            if (error == "duplicate user is not allowed") {
-            }
-            else {
-                throw (error);
-            }
-        }
-    }
-    user_update(newUser, newRole, oldUser) {
-        super.user_update(newUser, newRole, oldUser);
-    }
-    user_delete(user) {
-        super.user_delete(user);
-    }
+
+
 }
-exports.UserGroupsRoles = UserGroupsRoles;
+
+var getPrivileges = (privilege) => {
+    //returns the privilege
+    // search using keys in thsis arry of privileges
+}
+
+var createRole = (role, ...privilege) => {
+    // this creats the new role
+    var curPrivileges=[];
+    for (let index = 0; index < privilege.length; index++) {
+        curPrivileges[index] = privilege
+    }
+    roles.push = {
+        role : curPrivileges
+    }
+
+}
+
+var getRolePrivileges = (role) => {
+    // this returns thes privileges for current role
+}
+
+var validateRole = (role) => {
+    // this is middleware 
+}
