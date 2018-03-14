@@ -27,16 +27,13 @@ var createPrivileges = (name, description, defaultValue)=>{
 
 
 }
-
-
-
 var createNewRole = (role) =>{
     // creates new role
     roles.push(role);
 }
 
 var addPrivilegeToRole = (role, privilege, value)=>{
-    // This method sets nthe privilegs to role
+    // This method adds one privilege to single role i.e rolePrivilege array
     var checked = {};//this objects holds the status of method for checking
     for (let index = 0; index < privileges.length; index++) {
         //check privileges for valid privileg
