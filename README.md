@@ -11,7 +11,7 @@ This module is meant for creating user, groups or roles and privileges.
 ## Usage
 
 ### create previleges
-for creating prvileges use createNewPrivileges method this has three arguments name of privilege description of privilege and defualt value for privilege
+for creating privileges use createNewPrivileges method this has three arguments name of privilege description of privilege and defualt value for privilege
 
 ### get all privileges
 use getAllPrivileges method to all privileges
@@ -26,7 +26,7 @@ use getAllRoles to get all roles
 use  addPrivilegeToRole method to add privileges to roles. This has three arguments. role , privilege and value(value of privilege against defulat value in createNewPrivileges method)
 
 ### get role privileges with this method 
-To get all prvileges with value for a role use getRolePrivileges. This method accepts one argument i.e role. This method first gets set prvileges for a role and further add up all prvileges next in same array. So developer has to accept first come first privilege for the role.
+To get all privileges with value for a role use getRolePrivileges. This method accepts one argument i.e role. This method first gets set privileges for a role and further add up all privileges next in same array. So developer has to accept first come first privilege for the role.
 
 
 ```
@@ -36,7 +36,7 @@ createNewPrivileges("delete user", "this deletes the ", false);
 createNewRole("admin");
 createNewRole("editor");
 
-console.log(getAllPrivileges());//outputs all prvileges
+console.log(getAllPrivileges());//outputs all privileges
 console.log(getAllRoles());// outputs all roles
 
 addPrivilegeToRole("admin","create user", true);
