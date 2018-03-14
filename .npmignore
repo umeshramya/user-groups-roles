@@ -4,6 +4,7 @@
 *.js.map
 tsconfig.json
 
+/.vscode
 
 # Logs
 logs

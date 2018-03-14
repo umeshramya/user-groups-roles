@@ -1,6 +1,7 @@
 #Typescript map files
 *.js.map
 
+
 # Logs
 logs
 *.log

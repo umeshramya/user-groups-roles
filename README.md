@@ -1,5 +1,5 @@
 # user-groups-roles
-![verson](https://img.shields.io/badge/version-1.1.2-green.svg)
+![verson](https://img.shields.io/badge/version-2.0.0-green.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellowgreen.svg)
 
 
@@ -9,177 +9,40 @@ This module is meant for creating user, groups or roles and privileges.
 **npm i user-groups-roles**
 
 ## Usage
-```
-var role = require("user-groups-roles");
-var curRole = new   role.UserGroupsRoles("test");
-// from above code test folder is creted inside your project with three files
-// test/prvileges.json, test/roles.json, test/user.json
 
-```
-## CRUD operatation for privileges.json
-```
-/*
-============================
- CRUD privileges.json
-===========================
- */
-// insert
-curRole.privilege_insert("create_voucher", "permision to create new voucher", true);
-curRole.privilege_insert("edit_voucher", "permission to modify voucher", false);
-curRole.privilege_insert("delete_voucher", "permision to modify voucher", false);
-curRole.privilege_insert("voucher_date","alter or delete voucher date 0 = no date range, -1 = 'can not modify date, more than 0 = number date range", 0);
+### create previleges
+for creating prvileges use createNewPrivileges method this has three arguments name of privilege description of privilege and defualt value for privilege
 
-// update
-curRole.privilege_update("alter_voucher", "permission to alter existing voucher", true,"edit_voucher");
+### get all privileges
+use getAllPrivileges method to all privileges
 
-// delete
-curRole.privilege_delete("delete_voucher")
+### create roles 
+create new role with method createNewRole. this method has one argument i.e name of role.
 
-// get all priviegs with description
-curRole.get_privilege_table();
+### get all roles
+use getAllRoles to get all roles
 
-//get all privileges of from the table deducting descrptons
-curRole.get_all_prvileges();
+### add privileges to roles
+use  addPrivilegeToRole method to add privileges to roles. This has three arguments. role , privilege and value(value of privilege against defulat value in createNewPrivileges method)
+
+### get role privileges with this method 
+To get all prvileges with value for a role use getRolePrivileges. This method accepts one argument i.e role. This method first gets set prvileges for a role and further add up all prvileges next in same array. So developer has to accept first come first privilege for the role.
+
 
 ```
-## CRUD opertation for roles.json
-```
+createNewPrivileges("create user", "This creats the new", false);
+createNewPrivileges("delete user", "this deletes the ", false);
 
-/*
-======================
-CRUD roles.json
-=====================
-*/ 
+createNewRole("admin");
+createNewRole("editor");
 
-// insert 
+console.log(getAllPrivileges());//outputs all prvileges
+console.log(getAllRoles());// outputs all roles
 
-curRole.role_insert("admin", [
-    ["create_voucher", true],
-    ["alter_voucher", true],
-    ["delete_voucher", true],
-    ["voucher_date", 0]
-
-]);
-
-curRole.role_insert("editor", [
-    ["create_voucher", true],
-    ["alter_voucher", true],
-    ["delete_voucher", false],
-    ["voucher_date", 30]
-
-]);
-
-curRole.role_insert("author", [
-    ["create_voucher", true],
-    ["alter_voucher", false],
-    ["delete_voucher", false],
-    ["voucher_date", -1]
-
-]);
-
-curRole.role_insert("contributor", [
-    ["create_voucher", true],
-    ["alter_voucher", false],
-    ["delete_voucher", false],
-    ["voucher_date", -1]
-
-]);
-
-// update
-
-curRole.role_update("contributor", [
-    ["create_voucher", false],
-    ["alter_voucher", false],
-    ["delete_voucher", false],
-    ["voucher_date", -1]
-
-], "contributor")
+addPrivilegeToRole("admin","create user", true);
+addPrivilegeToRole("admin", "delete user", true);
 
 
-curRole.role_update("subscriber", [
-    ["create_voucher", false],
-    ["alter_voucher", false],
-    ["delete_voucher", false],
-    ["voucher_date", -1]
+console.log(getRolePrivileges("admin"));
 
-], "contributor")
-
-// // delete
-curRole.role_delete("contributor");
-
-// get all role table
-curRole.get_roles_table();
-
-```
-
-
-## CRUD operation for users.json
-```
-
-
-/*
-=================
-CRUD users.json
-================
-*/
-
-// insert
-curRole.user_insert("ramya", "admin");
-curRole.user_insert("umeshbilagi", "editor");
-
-// update
-curRole.user_update("umeshbilagi", "subscriber", "umeshbilagi");
-curRole.user_update("rajiv", "editor", "umeshbilagi");
-
-
-// delete
-curRole.user_delete("rajiv")
-
-// get table
-
-// get user privileges
-curRole.get_user_privileges("umeshbilagi");
-
-
-// get all users table
-curRole.get_users_table();
-
-```
-
-### users
-Users are created from the other  modules are used in this module. This module does not need a password. This also does not authenticate users. software developers are required to pass authenticated users to this module.
-users are assigned a role or group. from this role user inherit privileges
-users are created by admins or new registritation process.
-
-### roles or groups
-Roles and groups are used interchangeably
-Roles are declared by the admins. Admin has the power to create new kind of roles by using privileges. one can have admin roles.
-***Note admin user and admin roles or groups are not the same***.
-The admin user is supreme. he has all powers even above admin roles or groups.
-
-#### example of  roles table
-```
-{
-    "array" : [
-        ["role","privileges"],
-        ["admin", [["create_voucher", true], ["delete_voucher", true], ["edit_voucher", true]]],
-        ["editor", [["create_voucher", true], ["delete_voucher", true], ["edit_voucher", false]]],
-        ["author", [["create_voucher", true], ["delete_voucher", false], ["edit_voucher", false]]],
-    ]
-}
-```
-
-### privileges
-These are created by a software developer, not by admin. Admin user can not create new privileges, but by default, he has the power to assign existing privileges(i.e created by software developer
-#### example of prvileges table
-```
-{"array":[
-        ["privilege","description","defualt"],
-        ["create_voucher","This gives permsion to create voucher",true],
-        ["delete_voucher","This gives permsion to delete voucher",true],
-        ["alter_voucher","This allows altering the voucher",false]
-    ]
-    }
-
-```
-
+````
