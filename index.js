@@ -71,7 +71,7 @@ var addPrivilegeToRole = (role, privilege, value)=>{
 
     for (let index = 0; index < privileges.length; index++) {
         //check privileges for valid privileg
-        if(privileges[index][0] == privilege){
+        if(JSON.stringify(privileges[index][0]) == JSON.stringify(privilege)){
             checked.privilege = true;
             break;
         }

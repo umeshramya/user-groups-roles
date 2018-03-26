@@ -1,5 +1,5 @@
 # user-groups-roles
-![verson](https://img.shields.io/badge/version-2.0.0-green.svg)
+![verson](https://img.shields.io/badge/version-2.0.1-green.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellowgreen.svg)
 
 
@@ -29,9 +29,13 @@ use  addPrivilegeToRole method to add privileges to roles. This has three argume
 To get all privileges with value for a role use getRolePrivileges. This method accepts one argument i.e role. This method first gets set privileges for a role and further add up all privileges next in same array. So developer has to accept first come first privilege for the role.
 
 
+
+
 ```
+
 createNewPrivileges("create user", "This creats the new", false);
 createNewPrivileges("delete user", "this deletes the ", false);
+//privilege can be array  like createNewPrivileges(["/create_user", "POST"], "This creats the new", false);
 
 createNewRole("admin");
 createNewRole("editor");
