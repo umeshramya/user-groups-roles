@@ -136,7 +136,7 @@ module.exports.getRolePrivileges = getRolePrivileges;
 */ 
 var getRoleRoutePrivilegeValue = (role, url, method)=>{
     // this method retuns the route value of the  privilege in case it is present 
-   var privileges =  user.getRolePrivileges(role);
+   var privileges =  getRolePrivileges(role);
    for (let index = 0; index < privileges.length; index++) {
         if(url == privileges[index][0][0] && method == privileges[index][0][1]){
             return privileges[index][1]
@@ -156,7 +156,7 @@ module.exports.getRoleRoutePrivilegeValue = getRoleRoutePrivilegeValue;
 
 var getRolePrivilegeValue = (role, curprivilege)=>{
     // this method retuns method value other than route of the privilege used inside bussiness logic i.e model
-   var privileges =  user.getRolePrivileges(role);
+   var privileges =  getRolePrivileges(role);
    for (let index = 0; index < privileges.length; index++) {
         if(curprivilege == privileges[index][0]){
             return privileges[index][1]
