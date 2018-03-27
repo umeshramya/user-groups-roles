@@ -140,8 +140,9 @@ var getRoleRoutePrivilegeValue = (role, url, method)=>{
    for (let index = 0; index < privileges.length; index++) {
         if(url == privileges[index][0][0] && method == privileges[index][0][1]){
             return privileges[index][1]
+            break;
         }
-       break;
+     
    }
 
 } 
@@ -159,8 +160,9 @@ var getRolePrivilegeValue = (role, curprivilege)=>{
    for (let index = 0; index < privileges.length; index++) {
         if(curprivilege == privileges[index][0]){
             return privileges[index][1]
+            break;
         }
-       break;
+     
    }
 
 }
